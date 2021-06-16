@@ -14,8 +14,6 @@ if (dotenvResult.error) {
     throw dotenvResult.error;
 }
 
-const redisClient = require('./redis-client');
-
 const app: express.Application = express();
 const server: http.Server = http.createServer(app);
 const port = process.env.PORT ?? 3000;
