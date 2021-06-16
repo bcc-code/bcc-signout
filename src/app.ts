@@ -6,7 +6,8 @@ import cors from 'cors';
 import debug from 'debug';
 import dotenv from 'dotenv';
 import { CommonRoutesConfig } from './common/routes.config';
-import { UserSessionsRoutes } from './userSession/userSession.routes.config'
+import { UserSessionsRoutes } from './userSession/userSessions.routes.config';
+
 
 const dotenvResult = dotenv.config();
 if (dotenvResult.error) {

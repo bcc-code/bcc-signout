@@ -1,18 +1,19 @@
 import express from 'express';
-import userSessionService from '../services/userSession.service';
+import UserSessionService from '../services/userSessions.service';
 import debug from 'debug';
 
 const log: debug.IDebugger = debug('app:userSessions-controller');
-class UsersController {
+class UserSesssionsController {
     async getAllUserSessions(req: express.Request, res: express.Response) {
-        const userSessions = userSessionService.getAllUserSessions(req.body.userId);
+        console.log(req.params)
+        const userSessions = await UserSessionService.getAllUserSessions(req.params.userId);
         res.status(200).send(userSessions);
     }
 
     async storeUserSession(req: express.Request, res: express.Response) {
-        const ok = userSessionService.storeUserSession(req.body.userId, req.body.appId);
+        const ok = await UserSessionService.storeUserSession(req.params.userId, req.body.appId);
         res.status(200).send(ok);
     }
 }
 
-export default new UsersController();
+export default new UserSesssionsController();
