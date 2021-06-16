@@ -3,10 +3,6 @@
     "ext": "ts",
     "ignore": [".git", "node_modules", "*.test.ts"],
     "delay": 2000,
-    "events": {
-      "restart": "shx echo \"Restarting...\" && npx fkill-cli :9889 -f",
-      "crash": "shx echo \"Crashed, restarting...\""
-    },
     "execMap": {
       "ts": "node -r ts-node/register --inspect"
     },
