@@ -4,7 +4,10 @@
   "description": "BCC service thatt enables Single Sign Out in Auth0",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "start": "tsc && node ./dist/app.js",
+    "debug": "export DEBUG=* && npm run start",
+    "test": "mocha -r ts-node/register 'test/**/*.test.ts' --unhandled-rejections=strict",
+    "test-debug": "export DEBUG=* && npm test"
   },
   "repository": {
     "type": "git",
