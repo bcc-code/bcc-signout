@@ -36,7 +36,7 @@ if (!process.env.DEBUG) {
 }
 
 app.use(express.json())
-app.use(cors);
+//app.use(cors);
 app.use(expressWinston.logger(loggerOptions));
 
 routes.push(new UserSessionsRoutes(app));
