@@ -8,6 +8,13 @@ import dotenv from 'dotenv';
 import { CommonRoutesConfig } from './common/routes.config';
 import { UserSessionsRoutes } from './userSession/userSession.routes.config'
 
+const redis = require('redis')
+const client = redis.createClient({
+    host: process.env.REDISHOST,
+    port: process.env.REDISPORRT,
+    password: process.env.REDISPASSWORD
+})
+
 const dotenvResult = dotenv.config();
 if (dotenvResult.error) {
     throw dotenvResult.error;
