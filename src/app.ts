@@ -8,17 +8,12 @@ import dotenv from 'dotenv';
 import { CommonRoutesConfig } from './common/routes.config';
 import { UserSessionsRoutes } from './userSession/userSession.routes.config'
 
-const redis = require('redis')
-const client = redis.createClient({
-    host: process.env.REDISHOST,
-    port: process.env.REDISPORRT,
-    password: process.env.REDISPASSWORD
-})
-
 const dotenvResult = dotenv.config();
 if (dotenvResult.error) {
     throw dotenvResult.error;
 }
+
+const redisClient = require('./redis-client');
 
 const app: express.Application = express();
 const server: http.Server = http.createServer(app);
@@ -49,6 +44,7 @@ app.use(expressWinston.logger(loggerOptions));
 routes.push(new UserSessionsRoutes(app));
 
 
+
 const runningMessage = `Server running at http://localhost:${port}`;
 app.get('/', (req: express.Request, res: express.Response) => {
     res.status(200).send(runningMessage)
@@ -59,5 +55,6 @@ server.listen(port, () => {
         debugLog(`Routes configured for ${route.getName()}`);
     });
     console.log(runningMessage);
+    console.log(`REDIS host:port : ${process.env.REDISHOST}:${process.env.REDISPORT}`)
 });
 
