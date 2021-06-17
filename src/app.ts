@@ -42,8 +42,6 @@ app.use(expressWinston.logger(loggerOptions));
 
 routes.push(new UserSessionsRoutes(app));
 
-
-
 const runningMessage = `Server running at http://localhost:${port}`;
 app.get('/', (req: express.Request, res: express.Response) => {
     res.status(200).send(runningMessage)
@@ -54,6 +52,5 @@ server.listen(port, () => {
         debugLog(`Routes configured for ${route.getName()}`);
     });
     console.log(runningMessage);
-    console.log(`REDIS host:port : ${process.env.REDISHOST}:${process.env.REDISPORT}`)
 });
 
