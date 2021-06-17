@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node ./dist/app.js",
-    "dev": "npm run build && nodemon ./dist/app.js",
+    "dev": "nodemon --inspect=0.0.0.0:9229 ./src/app.ts",
     "debug": "export DEBUG=* && npm run dev",
     "test": "mocha -r ts-node/register 'test/**/*.test.ts' --unhandled-rejections=strict",
     "test-debug": "export DEBUG=* && npm test"
