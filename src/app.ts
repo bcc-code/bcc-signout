@@ -6,6 +6,7 @@ import cors from 'cors';
 import debug from 'debug';
 import dotenv from 'dotenv';
 import { userSessionsRouter } from './userSession/userSessions.router';
+import { logoutRouter } from './logout/logout.router';
 
 const dotenvResult = dotenv.config();
 if (dotenvResult.error) {
@@ -41,6 +42,7 @@ app.use(expressWinston.logger(loggerOptions));
 
 const runningMessage = `Server running at http://localhost:${port}`;
 app.use('/usersessions', userSessionsRouter)
+app.use('/logout',logoutRouter)
 
 app.get('/', (req: express.Request, res: express.Response) => {
     res.status(200).send(runningMessage)
