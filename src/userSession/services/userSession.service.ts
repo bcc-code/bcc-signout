@@ -1,8 +1,7 @@
 import { SessionService } from "../../common/interfaces/sessionService.interface";
-
 const redisClient = require('../../redis-client');
 
-class UserSessionsService implements SessionService {
+class UserSessionService implements SessionService {
     async getAllUserSessions(userId: string) {
         const ok = await redisClient.smembersAsync(userId)
         return ok
@@ -15,4 +14,4 @@ class UserSessionsService implements SessionService {
 
 }
 
-export default new UserSessionsService();
+export default new UserSessionService();

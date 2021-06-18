@@ -1,5 +1,5 @@
 import express from 'express';
-import UserSessionsController from './controllers/userSessions.controller';
+import UserSessionsController from './controllers/userSession.controller';
 
 const router = express.Router()
 
