@@ -1,8 +1,10 @@
 const redisClient = require('../../redis-client')
 
 class ClientService {
-    async registerClient(clientId: string, callbackURL: string) {
-        const ok = redisClient.setAsync(clientId, callbackURL)
+    async registerClient(clientId: string, callbackUrl: string) {
+        const ok = redisClient.setAsync(clientId, callbackUrl)
         return ok
     }
 }
+
+export default new ClientService
