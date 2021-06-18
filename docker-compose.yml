@@ -1,18 +1,32 @@
+version: '3.8'
 
-redis:
-    image: redis
-    container_name: cache
-    expose:
-      - 6379
-service:
-    build: ./
-    links:
-      - redis
-    ports:
-      - 4040:4040
-    environment:
-      - REDISHOST=redis
-      - NODE_ENV=development
-      - PORT=4040
-    command:
-      sh -c 'npm start'
+services:
+    redis:
+        image: redis
+        container_name: redis
+        expose:
+        - 6379
+    service:
+        build: ./
+        links:
+        - redis
+        ports:
+        - 4040:4040
+        environment:
+        - REDISHOST=redis
+        - NODE_ENV=development
+        - PORT=4040
+        command:
+            sh -c 'npm start'
+    mockServer:
+        image: mockserver/mockserver:latest
+        ports:
+            - 1080:1080
+        environment:
+            MOCKSERVER_PROPERTY_FILE: /config/mockServer.properties
+            MOCKSERVER_INITIALIZATION_JSON_PATH: /config/initializer.json
+        volumes:
+            - type: bind
+              source: ./mockServer
+              target: /config
+  

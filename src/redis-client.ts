@@ -17,6 +17,7 @@ client.on('connect', function () {
 
 module.exports = {
     ...client,
+    mgetAsync: promisify(client.mget).bind(client),
     saddAsync: promisify(client.sadd).bind(client),
     smembersAsync: promisify(client.smembers).bind(client),
     getAsync: promisify(client.get).bind(client),
