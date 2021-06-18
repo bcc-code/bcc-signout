@@ -7,6 +7,7 @@ import debug from 'debug';
 import dotenv from 'dotenv';
 import { userSessionsRouter } from './userSession/userSession.router';
 import { logoutRouter } from './logout/logout.router';
+import { clientRouter } from './clients/client.router';
 
 const dotenvResult = dotenv.config();
 if (dotenvResult.error) {
@@ -43,6 +44,9 @@ app.use(expressWinston.logger(loggerOptions));
 const runningMessage = `Server running at http://localhost:${port}`;
 app.use('/usersession', userSessionsRouter)
 app.use('/logout',logoutRouter)
+if(process.env.NODE_ENV === "development") {
+    app.use('/client', clientRouter)
+}
 
 app.get('/', (req: express.Request, res: express.Response) => {
     res.status(200).send(runningMessage)
