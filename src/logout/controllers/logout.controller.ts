@@ -9,7 +9,11 @@ class LogoutController {
         const logoutActions = await LogoutService.performFederatedLogout(
             req.params.userId
         )
-        res.status(200).send(logoutActions)
+        if (logoutActions.result === 'OK') {
+            res.status(200).send(logoutActions.message)
+        } else {
+            res.status(500).send()
+        }
     }
 }
 

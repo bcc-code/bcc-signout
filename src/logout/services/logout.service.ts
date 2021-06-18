@@ -2,13 +2,23 @@ import debug from 'debug'
 import axios from 'axios'
 const redisClient = require('../../redis-client')
 const log: debug.IDebugger = debug('app:logout-service')
+const noAction = { result: 'OK', message: 'No logouts were made.' }
 
 class LogoutService {
     async performFederatedLogout(userId: string) {
         const userSessions = await redisClient.smembersAsync(userId)
+        if (userSessions.length === 0) {
+            return noAction
+        }
         const callbacks = await this.fetchCallbackUrls(userSessions)
+        if (callbacks.length === 0) {
+            return noAction
+        }
         const statuses = await this.performLogouts(userId, callbacks)
-        return `logout performed for user ${userId} on these aps: ${userSessions}, by using these callbacks ${callbacks} with these statuses: ${statuses}`
+        if (statuses.length === 0) {
+            return noAction
+        }
+        return { result: 'OK', message: 'All logouts sucessfull.' }
     }
 
     async fetchCallbackUrls(userSessions: string[]) {
@@ -20,13 +30,15 @@ class LogoutService {
         let responses = []
         for (const url of callbackUrls) {
             try {
-                const finalUrl = url + "?userId=" + userId
+                const finalUrl = url + '?userId=' + userId
                 const reply = await axios.post(finalUrl)
-                log(reply)
-                responses.push(reply)
+                responses.push({
+                    status: reply.status,
+                    message: reply.statusText,
+                })
             } catch (error) {
                 console.error(error)
-            }       
+            }
         }
         log(responses)
         return responses

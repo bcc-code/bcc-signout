@@ -6,7 +6,10 @@ const log: debug.IDebugger = debug('app:client-controller')
 class ClientController {
     async registerClient(req: express.Request, res: express.Response) {
         log(req.params, req.body)
-        const registered = await ClientService.registerClient(req.params.appId, req.body.callbackUrl)
+        const registered = await ClientService.registerClient(
+            req.params.appId,
+            req.body.callbackUrl
+        )
         res.status(200).send(registered)
     }
 }
