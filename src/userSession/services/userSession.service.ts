@@ -1,5 +1,5 @@
-import { SessionService } from "../../common/interfaces/sessionService.interface";
-const redisClient = require('../../redis-client');
+import { SessionService } from '../../common/interfaces/sessionService.interface'
+const redisClient = require('../../redis-client')
 
 class UserSessionService implements SessionService {
     async getAllUserSessions(userId: string) {
@@ -7,11 +7,10 @@ class UserSessionService implements SessionService {
         return ok
     }
 
-    async storeUserSession (userId: string, appId: string) {
+    async storeUserSession(userId: string, appId: string) {
         const ok = await redisClient.saddAsync(userId, appId)
-        return {ok, userId, appId}
-    };
-
+        return { ok, userId, appId }
+    }
 }
 
-export default new UserSessionService();
+export default new UserSessionService()

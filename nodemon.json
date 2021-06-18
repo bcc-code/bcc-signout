@@ -4,10 +4,9 @@
     "ignore": [".git", "node_modules", "*.test.ts"],
     "delay": 2000,
     "execMap": {
-      "ts": "node -r ts-node/register"
+        "ts": "node -r ts-node/register"
     },
     "env": {
-      "NODE_ENV": "development"
+        "NODE_ENV": "development"
     }
-  }
-  
+}
