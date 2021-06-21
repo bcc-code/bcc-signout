@@ -1,6 +1,6 @@
 import debug from 'debug'
 import axios from 'axios'
-const redisClient = require('../../redis-client')
+const redisClient = require('./redis-client')
 const log: debug.IDebugger = debug('app:logout-service')
 const noAction = { result: 'OK', message: 'No logouts were made.' }
 

@@ -5,9 +5,9 @@ import * as expressWinston from 'express-winston'
 import cors from 'cors'
 import debug from 'debug'
 import dotenv from 'dotenv'
-import { userSessionsRouter } from './userSession/userSession.router'
-import { logoutRouter } from './logout/logout.router'
-import { clientRouter } from './clients/client.router'
+import { userSessionsRouter } from './router/userSession.router'
+import { logoutRouter } from './router/logout.router'
+import { clientRouter } from './router/client.router'
 
 const dotenvResult = dotenv.config()
 if (dotenvResult.error) {

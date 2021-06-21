@@ -1,4 +1,4 @@
-const redisClient = require('../../redis-client')
+const redisClient = require('./redis-client')
 
 class ClientService {
     async registerClient(clientId: string, callbackUrl: string) {
