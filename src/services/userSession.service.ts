@@ -1,4 +1,4 @@
-import { SessionService } from '../common/interfaces/sessionService.interface'
+import { SessionService } from '../interfaces/sessionService.interface'
 const redisClient = require('./redis-client')
 
 class UserSessionService implements SessionService {

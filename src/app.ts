@@ -2,12 +2,12 @@ import express from 'express'
 import * as http from 'http'
 import * as winston from 'winston'
 import * as expressWinston from 'express-winston'
-import cors from 'cors'
 import debug from 'debug'
 import dotenv from 'dotenv'
 import { userSessionsRouter } from './router/userSession.router'
 import { logoutRouter } from './router/logout.router'
 import { clientRouter } from './router/client.router'
+import errorMiddleware from './middlewares/error.middleware'
 
 const dotenvResult = dotenv.config()
 if (dotenvResult.error) {
@@ -37,16 +37,16 @@ if (!process.env.DEBUG) {
 }
 
 app.use(express.json())
-//app.use(cors);
 app.use(expressWinston.logger(loggerOptions))
+app.use(errorMiddleware)
 
-const runningMessage = `Server running at http://localhost:${port}`
 app.use('/usersession', userSessionsRouter)
 app.use('/logout', logoutRouter)
 if (process.env.NODE_ENV === 'development') {
     app.use('/client', clientRouter)
 }
 
+const runningMessage = `Server running at http://localhost:${port}`
 app.get('/', (req: express.Request, res: express.Response) => {
     res.status(200).send(runningMessage)
 })
