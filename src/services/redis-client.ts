@@ -13,6 +13,10 @@ client.on('connect', function () {
     debugLog(
         `Connected to redis instance ${process.env.REDISHOST}:${process.env.REDISPORT}`
     )
+
+    if (process.env.NODE_ENV === 'development') {
+        restoreTestData()
+    }
 })
 
 client.on('error', function (err: Error) {
@@ -22,6 +26,19 @@ client.on('error', function (err: Error) {
 client.on('reconnecting', function (msg: string) {
     console.error('Redis reconnecting:', msg)
 })
+
+const restoreTestData = () => {
+    client.flushall()
+    var appsData = loadAppsData()
+}
+
+const loadAppsData = () => {
+    var fs = require('fs');
+    var appsData = JSON.parse(fs.readFileSync('./test/clientConfig.json', 'utf8')); 
+    for (const app of appsData) {
+        client.set(app.clientId, app.callbackUrl)
+    }
+}
 
 module.exports = {
     ...client,
