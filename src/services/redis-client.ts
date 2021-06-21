@@ -15,6 +15,14 @@ client.on('connect', function () {
     )
 })
 
+client.on('error', function (err: Error) {
+    console.error('Redis error:', err)
+})
+
+client.on('reconnecting', function (msg: string) {
+    console.error('Redis reconnecting:', msg)
+})
+
 module.exports = {
     ...client,
     mgetAsync: promisify(client.mget).bind(client),

@@ -1,7 +1,7 @@
 import express from 'express'
 import UserSessionsController from '../controllers/userSession.controller'
-import {userSessionValidationRules} from '../validators/userSession.validator'
-import {validate} from '../middlewares/validate.middleware'
+import { userSessionValidationRules } from '../validators/userSession.validator'
+import { validate } from '../middlewares/validate.middleware'
 
 const router = express.Router()
 
