@@ -30,14 +30,15 @@ client.on('reconnecting', function (msg: string) {
 const restoreTestData = () => {
     client.flushall()
     var appsData = loadAppsData()
-}
-
-const loadAppsData = () => {
-    var fs = require('fs');
-    var appsData = JSON.parse(fs.readFileSync('./test/clientConfig.json', 'utf8')); 
     for (const app of appsData) {
         client.set(app.clientId, app.callbackUrl)
     }
+}
+
+const loadAppsData = (): any[] => {
+    var fs = require('fs');
+    var appsData = JSON.parse(fs.readFileSync('./test/data/clientConfig.json', 'utf8')); 
+    return appsData
 }
 
 module.exports = {
