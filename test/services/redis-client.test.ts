@@ -1,16 +1,11 @@
 import { expect } from 'chai';
-const redis = require('redis')
 const redisClient = require('../../src/services/redis-client')
-const client = redis.createClient({
-    host: process.env.REDISHOST,
-    port: process.env.REDISPORT,
-    //password: process.env.REDISPASSWORD
-})
+const redisTestInterface = require('../setup/redis-test-interface')
 
 describe('redis operations', function() {
 
     beforeEach(async ()=>{
-        client.flushall()
+        redisTestInterface.flushData()
     });
 
 

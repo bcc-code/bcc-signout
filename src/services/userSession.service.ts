@@ -8,8 +8,13 @@ class UserSessionService implements SessionService {
     }
 
     async storeUserSession(userId: string, appId: string) {
-        const ok = await redisClient.saddAsync(userId, appId)
-        return { ok, userId, appId }
+        const response = await redisClient.saddAsync(userId, appId)
+        if(response === 1) {
+            return { message: "OK", userId: userId, appId: appId }
+        } else {
+            throw new Error(`Unexpected response from redis instance: ${response}`)
+        }
+        
     }
 }
 

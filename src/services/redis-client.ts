@@ -24,7 +24,7 @@ client.on('error', function (err: Error) {
 })
 
 client.on('reconnecting', function (msg: string) {
-    console.error('Redis reconnecting:', msg)
+    debugLog('Redis reconnecting:', msg)
 })
 
 const restoreTestData = () => {
