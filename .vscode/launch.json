@@ -10,6 +10,14 @@
             "name": "Debug server - local",
             "cwd": "${workspaceFolder}",
             "restart": true
+        },
+        {
+            "name": "Attach to Mocha",
+            "type": "node",
+            "request": "attach",
+            "port": 9231,
+            "address": "localhost",
+            "restart": true,
         }
     ]
 }
