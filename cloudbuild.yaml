@@ -12,7 +12,7 @@ steps:
   #build server
   - name: gcr.io/cloud-builders/docker
     id: "signout-backend"
-    waitFor: ['-']
+    waitFor: ['setup-env-vars']
     args:
       [
         "build",
