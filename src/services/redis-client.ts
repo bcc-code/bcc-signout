@@ -21,6 +21,7 @@ client.on('connect', function () {
 
 client.on('error', function (err: Error) {
     debugLog(`Trying to connect to redis instance ${process.env.REDIS_HOST}:${process.env.REDIS_PORT} failed`)
+    debugLog(client)
     throw(err)
 })
 
