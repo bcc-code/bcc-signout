@@ -11,7 +11,8 @@
         "test": "mocha -r ts-node/register \"test/**/*.ts\" --unhandled-rejections=strict --recursive --exit --timeout 5000",
         "test-dev": "mocha -r ts-node/register \"test/**/*.ts\" --unhandled-rejections=strict --recursive --exit --timeout 5000 --inspect-brk=0.0.0.0:9231",
         "test-debug": "export DEBUG=* && npm run test-dev",
-        "pretty": "prettier --write \"./**/*.{js,jsx,json,ts}\""
+        "pretty": "prettier --write \"./**/*.{js,jsx,json,ts}\"",
+        "create-env": "printenv > .env"
     },
     "repository": {
         "type": "git",

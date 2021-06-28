@@ -1,4 +1,14 @@
 steps:
+  #prepare .env file
+  - name: node:14.17.1
+    id: "setup-env-vars"
+    entrypoint: npm
+    args: ["run","create-env"]
+    env:
+      - PORT=$_PORT
+      - REDISPORT=$_REDISPORT
+      - REDISHOST=$_REDISHOST
+      - REDISPASSWORD=$_REDISPASSWORD
   #build server
   - name: gcr.io/cloud-builders/docker
     id: "signout-backend"
