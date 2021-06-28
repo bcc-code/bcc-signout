@@ -1,8 +1,7 @@
 const redis = require('redis')
 const client = redis.createClient({
-    host: process.env.REDISHOST,
-    port: process.env.REDISPORT,
-    //password: process.env.REDISPASSWORD
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT,
 })
 
 

@@ -6,8 +6,8 @@ steps:
     args: ["run","create-env"]
     env:
       - PORT=$_PORT
-      - REDISPORT=$_REDISPORT
-      - REDISHOST=$_REDISHOST
+      - REDIS_PORT=$_REDIS_PORT
+      - REDIS_HOST=$_REDIS_HOST
   #build server
   - name: gcr.io/cloud-builders/docker
     id: "signout-backend"

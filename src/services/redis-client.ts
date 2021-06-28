@@ -4,13 +4,13 @@ const { promisify } = require('util')
 
 const debugLog: debug.IDebugger = debug('redis-client')
 const client = redis.createClient({
-    host: process.env.REDISHOST,
-    port: process.env.REDISPORT,
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT,
 })
 
 client.on('connect', function () {
     debugLog(
-        `Connected to redis instance ${process.env.REDISHOST}:${process.env.REDISPORT}`
+        `Connected to redis instance ${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`
     )
 
     /* if (process.env.NODE_ENV === 'development') {

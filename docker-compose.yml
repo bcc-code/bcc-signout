@@ -13,7 +13,7 @@ services:
         ports:
         - 4040:4040
         environment:
-        - REDISHOST=redis
+        - REDIS_HOST=redis
         - NODE_ENV=development
         - PORT=4040
         command:
