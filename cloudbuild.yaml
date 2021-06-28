@@ -1,0 +1,39 @@
+steps:
+  #build server
+  - name: gcr.io/cloud-builders/docker
+    id: "signout-backend"
+    waitFor: ['-']
+    args:
+      [
+        "build",
+        "-f",
+        "Dockerfile",
+        "-t",
+        "signout-backend",
+        ".",
+      ]  
+  #push image
+  - name: gcr.io/cloud-builders/docker
+    id: "push"
+    waitFor: ["signout-backend"]
+    args:
+      [
+        "push",
+        "$_IMAGE_NAME"
+      ]
+  #deploy to cloud run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    waitFor: ["push"]
+    args:
+      - 'run'
+      - 'deploy'
+      - '$_ENVIRONMENT'
+      - '--image'
+      - '$_IMAGE_NAME'
+      - '--region'
+      - 'europe-north1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--port'
+      - '4040'
