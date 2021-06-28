@@ -20,6 +20,8 @@ const port = process.env.PORT ?? 3000
 
 const debugLog: debug.IDebugger = debug('app')
 
+debugLog(process.env)
+
 const loggerOptions: expressWinston.LoggerOptions = {
     transports: [new winston.transports.Console()],
     format: winston.format.combine(

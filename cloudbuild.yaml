@@ -8,7 +8,6 @@ steps:
       - PORT=$_PORT
       - REDISPORT=$_REDISPORT
       - REDISHOST=$_REDISHOST
-      - REDISPASSWORD=$_REDISPASSWORD
   #build server
   - name: gcr.io/cloud-builders/docker
     id: "signout-backend"
