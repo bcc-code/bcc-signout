@@ -27,7 +27,7 @@ steps:
     args:
       - 'run'
       - 'deploy'
-      - '$_ENVIRONMENT'
+      - '$_SERVICE_NAME'
       - '--image'
       - '$_IMAGE_NAME'
       - '--region'
