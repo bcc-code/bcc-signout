@@ -16,7 +16,8 @@ if (dotenvResult.error) {
 
 const app: express.Application = express()
 const server: http.Server = http.createServer(app)
-const port = process.env.PORT ?? 3000
+const port = process.env.PORT ?? 4040
+const hostname = app.get("host")
 
 const debugLog: debug.IDebugger = debug('app')
 
@@ -48,7 +49,7 @@ if (process.env.NODE_ENV === 'development') {
     app.use('/client', clientRouter)
 }
 
-const runningMessage = `Server running at http://localhost:${port}`
+const runningMessage = `Server running at ${hostname}:${port}, Trying to connect to redis instance ${process.env.REDIS_HOST}:${process.env.REDIS_PORT} `
 app.get('/', (req: express.Request, res: express.Response) => {
     res.status(200).send(runningMessage)
 })
