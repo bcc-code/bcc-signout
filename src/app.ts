@@ -9,10 +9,7 @@ import { logoutRouter } from './router/logout.router'
 import { clientRouter } from './router/client.router'
 import errorMiddleware from './middlewares/error.middleware'
 
-const dotenvResult = dotenv.config()
-if (dotenvResult.error) {
-    throw dotenvResult.error
-}
+
 
 const app: express.Application = express()
 const server: http.Server = http.createServer(app)

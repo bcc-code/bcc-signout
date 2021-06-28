@@ -5,8 +5,8 @@
     "main": "index.js",
     "scripts": {
         "build": "tsc",
-        "start": "node ./dist/app.js",
-        "dev": "nodemon --inspect=0.0.0.0:9229 ./src/app.ts",
+        "start": "node -r dotenv/config ./dist/app.js",
+        "dev": "nodemon -r dotenv/config --inspect=0.0.0.0:9229 ./src/app.ts",
         "debug": "export DEBUG=* && npm run dev",
         "test": "mocha -r ts-node/register \"test/**/*.ts\" --unhandled-rejections=strict --recursive --exit --timeout 5000",
         "test-dev": "mocha -r ts-node/register \"test/**/*.ts\" --unhandled-rejections=strict --recursive --exit --timeout 5000 --inspect-brk=0.0.0.0:9231",
