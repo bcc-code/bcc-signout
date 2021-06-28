@@ -47,4 +47,5 @@ steps:
       - '--allow-unauthenticated'
       - '--port'
       - '4040'
-      - --vpc-connector $_VPC_CONNECTOR
+      - --vpc-connector 
+      - $_VPC_CONNECTOR
