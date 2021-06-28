@@ -9,7 +9,7 @@ steps:
         "-f",
         "Dockerfile",
         "-t",
-        "signout-backend",
+        "$_IMAGE_NAME",
         ".",
       ]  
   #push image
