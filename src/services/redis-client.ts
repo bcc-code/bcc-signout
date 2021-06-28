@@ -6,7 +6,6 @@ const debugLog: debug.IDebugger = debug('redis-client')
 const client = redis.createClient({
     host: process.env.REDISHOST,
     port: process.env.REDISPORT,
-    //password: process.env.REDISPASSWORD
 })
 
 client.on('connect', function () {
@@ -14,13 +13,13 @@ client.on('connect', function () {
         `Connected to redis instance ${process.env.REDISHOST}:${process.env.REDISPORT}`
     )
 
-    if (process.env.NODE_ENV === 'development') {
+    /* if (process.env.NODE_ENV === 'development') {
         restoreTestData()
-    }
+    } */
 })
 
 client.on('error', function (err: Error) {
-    console.error('Redis error:', err)
+    throw(err)
 })
 
 client.on('reconnecting', function (msg: string) {
