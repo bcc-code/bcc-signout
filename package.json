@@ -1,7 +1,7 @@
 {
     "name": "bcc-signout",
     "version": "0.0.1",
-    "description": "BCC service thatt enables Single Sign Out in Auth0",
+    "description": "BCC service that enables Single Sign Out in Auth0",
     "main": "index.js",
     "scripts": {
         "build": "tsc",
