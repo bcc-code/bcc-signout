@@ -8,6 +8,7 @@ steps:
       - PORT=$_PORT
       - REDIS_PORT=$_REDIS_PORT
       - REDIS_HOST=$_REDIS_HOST
+      - TEST=test
   #build server
   - name: gcr.io/cloud-builders/docker
     id: "signout-backend"
