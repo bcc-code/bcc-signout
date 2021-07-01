@@ -14,10 +14,11 @@ class UserSesssionController {
 
     async storeUserSession(req: express.Request, res: express.Response) {
         log(req, res)
-        const ok = await UserSessionService.storeUserSession(
-            req.params.userId,
-            req.body.appId
-        )
+        const ok = await UserSessionService.storeUserSession({
+            userId: req.params.userId,
+            appId: req.body.appId,
+            sessionId: req.body.sessionId
+        })
         res.status(200).send(ok)
     }
 }

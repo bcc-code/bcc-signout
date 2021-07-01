@@ -1,4 +1,5 @@
+import { UserSessionMetadata } from "./userSessionMetadata";
 export interface SessionService {
     getAllUserSessions: (userID: string) => Promise<any>
-    storeUserSession: (userId: string, appId: string) => Promise<any>
+    storeUserSession: (userSessionMetadata:UserSessionMetadata) => Promise<any>
 }
