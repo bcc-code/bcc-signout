@@ -1,12 +1,12 @@
 function (user, context, callback) {
     const initSlackNotify = require('slack-notify');
-    const slackWebHookUrl = "https://hooks.slack.com/services/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";
+    const slackWebHookUrl = "";
     const slack = initSlackNotify(slackWebHookUrl);
     if (!!user.clientID && !!user.user_id && !!context.sessionID) {
         const fetch = require('node-fetch');
 
         const localServiceUrl = "";
-        const devServiceUrl = "";
+        const devServiceUrl = "https://signout-dev-i7vver6zya-lz.a.run.app";
         const finalServiceUrl = localServiceUrl + "/usersession/" + user.user_id;
         
         const messageBody = JSON.parse(JSON.stringify({
