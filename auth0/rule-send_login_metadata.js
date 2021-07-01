@@ -5,8 +5,8 @@ function (user, context, callback) {
     if (!!user.clientID && !!user.user_id && !!context.sessionID) {
         const fetch = require('node-fetch');
 
-        const localServiceUrl = "http://2e335af7aa6c.ngrok.io";
-        const devServiceUrl = "https://signout-dev-i7vver6zya-lz.a.run.app";
+        const localServiceUrl = "";
+        const devServiceUrl = "";
         const finalServiceUrl = localServiceUrl + "/usersession/" + user.user_id;
         
         const messageBody = JSON.parse(JSON.stringify({
