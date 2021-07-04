@@ -14,12 +14,18 @@ class UserSesssionController {
 
     async storeUserSession(req: express.Request, res: express.Response) {
         log(req, res)
-        const ok = await UserSessionService.storeUserSession({
-            userId: req.params.userId,
-            appId: req.body.appId,
-            sessionId: req.body.sessionId
-        })
-        res.status(200).send(ok)
+        try {
+            const ok = await UserSessionService.storeUserSession({
+                userId: req.params.userId,
+                appId: req.body.appId,
+                sessionId: req.body.sessionId,
+                state: req.body.state
+            })
+            res.status(200).send(ok)
+        } catch (error) {
+            res.status(500).send({error: error, message: "Encountered internal error, request was not succesfull"})
+        }
+        
     }
 }
 
