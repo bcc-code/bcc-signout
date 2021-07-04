@@ -2,17 +2,18 @@ function (user, context, callback) {
     const initSlackNotify = require('slack-notify');
     const slackWebHookUrl = "";
     const slack = initSlackNotify(slackWebHookUrl);
-    if (!!user.clientID && !!user.user_id && !!context.sessionID) {
+    if (!!user.clientID && !!user.user_id && !!context.sessionID && !!context.request.query.state) {
         const fetch = require('node-fetch');
 
         const localServiceUrl = "";
-        const devServiceUrl = "https://signout-dev-i7vver6zya-lz.a.run.app";
+        const devServiceUrl = "";
         const finalServiceUrl = localServiceUrl + "/usersession/" + user.user_id;
         
         const messageBody = JSON.parse(JSON.stringify({
-            appId: user.clientID,
+            //appId: user.clientID,
             userId: user.user_id,
-            sessionId: context.sessionID
+            sessionId: context.sessionID,
+          	state: context.request.query.state
         }));
 
 
@@ -38,7 +39,11 @@ function (user, context, callback) {
             });
     } else {
         slack.success({
-            text: JSON.stringify({message: "Some of needed data is missing!" })
+            text: JSON.stringify({message: "Some of needed data is missing!", data: {
+              appId: user.clientID,
+            	userId: user.user_id,
+            	sessionId: context.sessionID,
+            	state: context.request.query.state} })
         });
     }
 
