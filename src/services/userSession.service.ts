@@ -12,7 +12,7 @@ class UserSessionService implements SessionService {
         //const appUrl = clientConfiguration.getCallback(userSession.appId)
         const appUrl = "www.callback.bcc.no/logout/"
         const userSessionKey = [userSession.userId, userSession.sessionId, userSession.appId].join("|")
-        const userSessionCallbackUrl = appUrl + userSession.state
+        const userSessionCallbackUrl = appUrl + "|" + userSession.state
         const response = await redisClient.setExAsync(userSessionKey, redisClient.defaultTTL, userSessionCallbackUrl)
 
         if(response === "OK") {
