@@ -9,15 +9,17 @@ class UserSessionService implements SessionService {
     }
 
     async storeUserSession(userSession: UserSessionMetadata) {
-        const response = await redisClient.saddAsync(userSession.userId, userSession.appId)
-        if(response === 1) {
-            return { message: "OK", userId: userSession.userId, appId: userSession.appId }
-        } else if(response === 0) {
-            return { message: "Refreshed", userId: userSession.userId, appId: userSession.appId }
+        //const appUrl = clientConfiguration.getCallback(userSession.appId)
+        const appUrl = "www.callback.bcc.no/logout/"
+        const userSessionKey = [userSession.userId, userSession.sessionId, userSession.appId].join("|")
+        const userSessionCallbackUrl = appUrl + userSession.state
+        const response = await redisClient.setExAsync(userSessionKey, redisClient.defaultTTL, userSessionCallbackUrl)
+
+        if(response === "OK") {
+            return { message: "OK"}
         } else {
             throw new Error(`Unexpected response from redis instance: ${response}`)
-        }
-        
+        }      
     }
 }
 
