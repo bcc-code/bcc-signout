@@ -3,9 +3,12 @@ const redis = require('redis')
 const { promisify } = require('util')
 
 const debugLog: debug.IDebugger = debug('service:redis-client')
-const defaultTTL: number = 31*24*60*60 //seconds in a 31-day month
+const defaultTTL: number = 31 * 24 * 60 * 60 //seconds in a 31-day month
 
-const client = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST)
+const client = redis.createClient(
+    process.env.REDIS_PORT,
+    process.env.REDIS_HOST
+)
 client.on('connect', function () {
     debugLog(
         `Connected to redis instance ${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`
@@ -13,9 +16,11 @@ client.on('connect', function () {
 })
 
 client.on('error', function (err: Error) {
-    debugLog(`Trying to connect to redis instance ${process.env.REDIS_HOST}:${process.env.REDIS_PORT} failed`)
+    debugLog(
+        `Trying to connect to redis instance ${process.env.REDIS_HOST}:${process.env.REDIS_PORT} failed`
+    )
     debugLog(client.address)
-    throw(err)
+    throw err
 })
 
 client.on('reconnecting', function (msg: string) {
@@ -32,5 +37,5 @@ module.exports = {
     setExAsync: promisify(client.setex).bind(client),
     keysAsync: promisify(client.keys).bind(client),
     delAsync: promisify(client.del).bind(client),
-    defaultTTL: defaultTTL
+    defaultTTL: defaultTTL,
 }

@@ -5,9 +5,12 @@ import { logoutRequestValidationRules } from '../validators/logoutRequest.valida
 
 const router = express.Router()
 
-router.route('/:userId').post(
-    logoutRequestValidationRules(),
-    validate,
-    logoutController.triggerLogout)
+router
+    .route('/:userId')
+    .post(
+        logoutRequestValidationRules(),
+        validate,
+        logoutController.triggerLogout
+    )
 
 export { router as logoutRouter }

@@ -1,18 +1,22 @@
-import { ClientConfiguration } from "../interfaces/clientConfiguration.interface";
+import { ClientConfiguration } from '../interfaces/clientConfiguration.interface'
 
-var fs = require('fs');
+var fs = require('fs')
 
 class ClientConfigurationService {
     readClientConfig(clientId: string): string {
-        const appsData = JSON.parse(fs.readFileSync('./data/clientConfig.json', 'utf8')) as ClientConfiguration[];
-        const clientData = appsData.find((client:any) => client.clientId === clientId)
+        const appsData = JSON.parse(
+            fs.readFileSync('./data/clientConfig.json', 'utf8')
+        ) as ClientConfiguration[]
+        const clientData = appsData.find(
+            (client: any) => client.clientId === clientId
+        )
 
-        if(clientData === undefined) {
-           return ""
+        if (clientData === undefined) {
+            return ''
         }
 
         return clientData.callbackUrl
     }
 }
 
-export default new ClientConfigurationService
+export default new ClientConfigurationService()

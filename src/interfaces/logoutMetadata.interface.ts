@@ -1,5 +1,5 @@
 export interface LogoutMetadata {
-    userId: string,
-    sessionId: string,
+    userId: string
+    sessionId: string
     state: string
 }

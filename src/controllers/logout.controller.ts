@@ -12,9 +12,12 @@ class LogoutController {
             state: req.body.state,
         })
         if (logoutActions.result === 'OK') {
-            res.status(200).json({result: logoutActions})
+            res.status(200).json({ result: logoutActions })
         } else {
-            res.status(500).json({message: "Encountered internal error, request was not succesfull"})
+            res.status(500).json({
+                message:
+                    'Encountered internal error, request was not succesfull',
+            })
         }
     }
 }

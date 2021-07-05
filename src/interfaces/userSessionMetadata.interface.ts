@@ -1,6 +1,6 @@
 export interface UserSessionMetadata {
-    userId: string,
-    clientId: string,
-    sessionId: string,
+    userId: string
+    clientId: string
+    sessionId: string
     state: string
 }

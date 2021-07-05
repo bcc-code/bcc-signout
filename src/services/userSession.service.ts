@@ -12,20 +12,30 @@ class UserSessionService implements SessionService {
     }
 
     async storeUserSession(userSession: UserSessionMetadata) {
-        const appUrl = clientConfigurationService.readClientConfig(userSession.clientId)
-        if(appUrl === "") {
-            return {status: 400, message: "Client ID not found"}
+        const appUrl = clientConfigurationService.readClientConfig(
+            userSession.clientId
+        )
+        if (appUrl === '') {
+            return { status: 400, message: 'Client ID not found' }
         }
 
-        const userSessionKey = [userSession.userId, userSession.sessionId, userSession.clientId].join("::")
-        const userSessionCallbackUrl = appUrl + "::" + userSession.state
-        const response = await redisClient.setExAsync(userSessionKey, redisClient.defaultTTL, userSessionCallbackUrl)
+        const userSessionKey = [
+            userSession.userId,
+            userSession.sessionId,
+            userSession.clientId,
+        ].join('::')
+        const userSessionCallbackUrl = appUrl + '::' + userSession.state
+        const response = await redisClient.setExAsync(
+            userSessionKey,
+            redisClient.defaultTTL,
+            userSessionCallbackUrl
+        )
 
-        if(response === "OK") {
-            return { message: "OK"}
+        if (response === 'OK') {
+            return { message: 'OK' }
         } else {
             throw new Error(`Unexpected response from redis store: ${response}`)
-        }      
+        }
     }
 }
 

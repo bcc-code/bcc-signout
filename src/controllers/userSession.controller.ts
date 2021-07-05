@@ -11,17 +11,19 @@ class UserSesssionController {
                 userId: req.params.userId,
                 clientId: req.body.clientId,
                 sessionId: req.body.sessionId,
-                state: req.body.state
+                state: req.body.state,
             })
-            if(ok.status && ok.status === 400) {
-                res.status(400).json({message: ok.message})
+            if (ok.status && ok.status === 400) {
+                res.status(400).json({ message: ok.message })
             } else {
-                res.status(200).json({message: ok.message})
+                res.status(200).json({ message: ok.message })
             }
         } catch (error) {
-            res.status(500).json({message: "Encountered internal error, request was not succesfull"})
+            res.status(500).json({
+                message:
+                    'Encountered internal error, request was not succesfull',
+            })
         }
-        
     }
 }
 

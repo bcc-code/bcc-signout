@@ -10,7 +10,7 @@ import errorMiddleware from './middlewares/error.middleware'
 const app: express.Application = express()
 const server: http.Server = http.createServer(app)
 const port = process.env.PORT ?? 4040
-const hostname = app.get("host")
+const hostname = app.get('host')
 
 const debugLog: debug.IDebugger = debug('app')
 
@@ -44,8 +44,6 @@ app.get('/', (req: express.Request, res: express.Response) => {
     res.status(200).send(runningMessage)
 })
 
-export default
-
-server.listen(port, () => {
+export default server.listen(port, () => {
     console.log(runningMessage)
 })

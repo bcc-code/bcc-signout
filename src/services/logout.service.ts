@@ -8,32 +8,45 @@ const noAction = { result: 'OK', message: 'No logouts were made.' }
 
 class LogoutService {
     async performFederatedLogout(logoutMetadata: LogoutMetadata) {
-        const pattern = [logoutMetadata.userId, logoutMetadata.sessionId, "*"].join("::")
+        const pattern = [
+            logoutMetadata.userId,
+            logoutMetadata.sessionId,
+            '*',
+        ].join('::')
         const userSessions = await redisClient.keysAsync(pattern)
         if (userSessions.length === 0) {
-            return {...noAction, cause: "No sessions for this user were found" }
+            return {
+                ...noAction,
+                cause: 'No sessions for this user were found',
+            }
         }
 
         const callbacks = await this.fetchCallbackUrls(userSessions)
         if (callbacks.length === 0) {
-            return {...noAction, cause: "No Urls have been found" }
+            return { ...noAction, cause: 'No Urls have been found' }
         }
 
         await this.cleanUpUserSessions(userSessions)
 
-        const statuses = await this.performLogouts(logoutMetadata.userId, callbacks)
+        const statuses = await this.performLogouts(
+            logoutMetadata.userId,
+            callbacks
+        )
         if (statuses.length === 0) {
             return noAction
         }
 
-        if(statuses.some(response => response instanceof Error))
-        {
-            return {result: "OK", message: "Some logouts might have errors.", responses: statuses}
+        if (statuses.some((response) => response instanceof Error)) {
+            return {
+                result: 'OK',
+                message: 'Some logouts might have errors.',
+                responses: statuses,
+            }
         }
         return { result: 'OK', message: 'All logouts sucessfull.' }
     }
 
-    async fetchCallbackUrls(userSessions: string[]):Promise<string[]> {
+    async fetchCallbackUrls(userSessions: string[]): Promise<string[]> {
         const data = await redisClient.mgetAsync(userSessions)
         return data.filter((value: string) => value !== null)
     }
@@ -49,8 +62,8 @@ class LogoutService {
                 const reply = await axios.post(url, null, {
                     params: {
                         userId: userId,
-                        state: state
-                    }
+                        state: state,
+                    },
                 })
                 responses.push({
                     status: reply.status,
