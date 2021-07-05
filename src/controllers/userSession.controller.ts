@@ -22,12 +22,12 @@ class UserSesssionController {
                 state: req.body.state
             })
             if(ok.status && ok.status === 400) {
-                res.status(ok.status).send(ok.message)
+                res.status(400).json({message: ok.message})
             } else {
-                res.status(200).send(ok)
+                res.status(200).json({message: ok.message})
             }
         } catch (error) {
-            res.status(500).send({message: "Encountered internal error, request was not succesfull"})
+            res.status(500).json({message: "Encountered internal error, request was not succesfull"})
         }
         
     }
