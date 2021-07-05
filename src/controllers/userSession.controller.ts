@@ -4,14 +4,6 @@ import debug from 'debug'
 const log: debug.IDebugger = debug('controller:userSessions')
 
 class UserSesssionController {
-    async getAllUserSessions(req: express.Request, res: express.Response) {
-        log(req, res)
-        const userSessions = await UserSessionService.getAllUserSessions(
-            req.params.userId
-        )
-        res.status(200).send(userSessions)
-    }
-
     async storeUserSession(req: express.Request, res: express.Response) {
         log(req, res)
         try {

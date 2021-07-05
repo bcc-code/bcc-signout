@@ -7,7 +7,6 @@ const router = express.Router()
 
 router
     .route('/:userId')
-    .get(UserSessionsController.getAllUserSessions)
     .post(
         userSessionValidationRules(),
         validate,
