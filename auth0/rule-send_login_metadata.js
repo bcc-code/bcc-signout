@@ -10,7 +10,7 @@ function (user, context, callback) {
         const finalServiceUrl = localServiceUrl + "/usersession/" + user.user_id;
         
         const messageBody = JSON.parse(JSON.stringify({
-            userId: user.user_id,
+            clientId: user.clientID,
             sessionId: context.sessionID,
           	state: context.request.query.state
         }));
