@@ -7,10 +7,10 @@
         "build": "tsc",
         "start": "node -r dotenv/config ./dist/app.js",
         "dev": "nodemon -r dotenv/config --inspect=0.0.0.0:9229 ./src/app.ts",
-        "debug": "export DEBUG=* && npm run dev",
+        "debug": "export DEBUG=*,-controller:* && npm run dev",
         "test": "mocha -r ts-node/register \"test/**/*.ts\" --unhandled-rejections=strict --recursive --exit --timeout 5000",
         "test-dev": "mocha -r ts-node/register \"test/**/*.ts\" --unhandled-rejections=strict --recursive --exit --timeout 5000 --inspect-brk=0.0.0.0:9231",
-        "test-debug": "export DEBUG=* && npm run test-dev",
+        "test-debug": "export DEBUG=*,-controller:* && npm run test-dev",
         "pretty": "prettier --write \"./**/*.{js,jsx,json,ts}\"",
         "create-env": "printenv > .env"
     },
