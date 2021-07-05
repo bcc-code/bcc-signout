@@ -19,6 +19,8 @@ class LogoutService {
             return {...noAction, cause: "No Urls have been found" }
         }
 
+        await this.cleanUpUserSessions(userSessions)
+
         const statuses = await this.performLogouts(logoutMetadata.userId, callbacks)
         if (statuses.length === 0) {
             return noAction
@@ -61,6 +63,11 @@ class LogoutService {
         }
         log(responses)
         return responses
+    }
+
+    async cleanUpUserSessions(userSessions: string[]) {
+        const reply = redisClient.delAsync(userSessions)
+        log(reply)
     }
 }
 
