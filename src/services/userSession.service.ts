@@ -12,7 +12,7 @@ class UserSessionService implements SessionService {
     async storeUserSession(userSession: UserSessionMetadata) {
         const appUrl = clientConfigurationService.readClientConfig(userSession.clientId)
         if(appUrl === "") {
-            throw new Error("Client configuration for this clientId has not been found.")
+            return {status: 400, message: "Client ID not found"}
         }
 
         const userSessionKey = [userSession.userId, userSession.sessionId, userSession.clientId].join("::")
@@ -22,7 +22,7 @@ class UserSessionService implements SessionService {
         if(response === "OK") {
             return { message: "OK"}
         } else {
-            throw new Error(`Unexpected response from redis instance: ${response}`)
+            throw new Error(`Unexpected response from redis store: ${response}`)
         }      
     }
 }
