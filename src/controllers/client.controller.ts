@@ -7,7 +7,7 @@ class ClientController {
     async registerClient(req: express.Request, res: express.Response) {
         log(req.params, req.body)
         const registered = await ClientService.registerClient(
-            req.params.appId,
+            req.params.clientId,
             req.body.callbackUrl
         )
         res.status(200).send(registered)

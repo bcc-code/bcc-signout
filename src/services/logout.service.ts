@@ -1,6 +1,6 @@
 import debug from 'debug'
 import axios from 'axios'
-import { LogoutMetadata } from '../interfaces/logoutMetadata'
+import { LogoutMetadata } from '../interfaces/logoutMetadata.interface'
 
 const redisClient = require('./redis-client')
 const log: debug.IDebugger = debug('app:logout-service')
@@ -8,7 +8,7 @@ const noAction = { result: 'OK', message: 'No logouts were made.' }
 
 class LogoutService {
     async performFederatedLogout(logoutMetadata: LogoutMetadata) {
-        const pattern = [logoutMetadata.userId, logoutMetadata.sessionId, "*"].join("|")
+        const pattern = [logoutMetadata.userId, logoutMetadata.sessionId, "*"].join("::")
         const userSessions = await redisClient.keysAsync(pattern)
         if (userSessions.length === 0) {
             return {...noAction, cause: "No sessions for this user were found" }
@@ -41,7 +41,7 @@ class LogoutService {
     async performLogouts(userId: string, callbackUrls: string[]) {
         let responses = []
         for (const callback of callbackUrls) {
-            const data = callback.split('|')
+            const data = callback.split('::')
             const url = data[0]
             const state = data[1]
 

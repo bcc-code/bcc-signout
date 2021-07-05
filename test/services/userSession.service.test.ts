@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import userSessionService from '../../src/services/userSession.service';
-import { UserSessionMetadata } from '../../src/interfaces/userSessionMetadata';
+import { UserSessionMetadata } from '../../src/interfaces/userSessionMetadata.interface';
 const redisTestInterface = require('../setup/redis-test-interface')
 
 
 describe("UserService works properly", function() {
     const testUserSession:UserSessionMetadata = {
-        appId: "APPID",
+        clientId: "CLIENTID",
         userId: "USERID",
         sessionId: "SESSIONID",
         state: "STATE"
@@ -21,7 +21,8 @@ describe("UserService works properly", function() {
 
         expect(result).to.be.an('object').that.has.property("message", "OK")
 
-        var readOut = redisTestInterface.client.get("USERID|SESSIONID|APPID", function(err:Error,res:any) {
+        var readOut = redisTestInterface.client.get("USERID::SESSIONID::CLIENTID", function(err:Error,res:any) {
+            console.log(res)
             expect(res).to.be.a('string').to.contain("STATE")
         })
     })

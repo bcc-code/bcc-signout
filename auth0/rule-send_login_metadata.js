@@ -10,7 +10,6 @@ function (user, context, callback) {
         const finalServiceUrl = localServiceUrl + "/usersession/" + user.user_id;
         
         const messageBody = JSON.parse(JSON.stringify({
-            //appId: user.clientID,
             userId: user.user_id,
             sessionId: context.sessionID,
           	state: context.request.query.state
@@ -40,7 +39,7 @@ function (user, context, callback) {
     } else {
         slack.success({
             text: JSON.stringify({message: "Some of needed data is missing!", data: {
-              appId: user.clientID,
+                clientId: user.clientID,
             	userId: user.user_id,
             	sessionId: context.sessionID,
             	state: context.request.query.state} })

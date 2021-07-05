@@ -3,6 +3,6 @@ import ClientController from '../controllers/client.controller'
 
 const router = express.Router()
 
-router.route('/:appId').post(ClientController.registerClient)
+router.route('/:clientId').post(ClientController.registerClient)
 
 export { router as clientRouter }

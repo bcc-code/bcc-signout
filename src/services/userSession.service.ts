@@ -1,5 +1,6 @@
 import { SessionService } from '../interfaces/sessionService.interface'
-import { UserSessionMetadata } from '../interfaces/userSessionMetadata'
+import { UserSessionMetadata } from '../interfaces/userSessionMetadata.interface'
+import clientConfigurationService from './clientConfiguration.service'
 const redisClient = require('./redis-client')
 
 class UserSessionService implements SessionService {
@@ -9,10 +10,13 @@ class UserSessionService implements SessionService {
     }
 
     async storeUserSession(userSession: UserSessionMetadata) {
-        //const appUrl = clientConfiguration.getCallback(userSession.appId)
-        const appUrl = "www.callback.bcc.no/logout/"
-        const userSessionKey = [userSession.userId, userSession.sessionId, userSession.appId].join("|")
-        const userSessionCallbackUrl = appUrl + "|" + userSession.state
+        const appUrl = clientConfigurationService.readClientConfig(userSession.clientId)
+        if(appUrl === "") {
+            throw new Error("Client configuration for this clientId has not been found.")
+        }
+
+        const userSessionKey = [userSession.userId, userSession.sessionId, userSession.clientId].join("::")
+        const userSessionCallbackUrl = appUrl + "::" + userSession.state
         const response = await redisClient.setExAsync(userSessionKey, redisClient.defaultTTL, userSessionCallbackUrl)
 
         if(response === "OK") {

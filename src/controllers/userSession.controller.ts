@@ -17,7 +17,7 @@ class UserSesssionController {
         try {
             const ok = await UserSessionService.storeUserSession({
                 userId: req.params.userId,
-                appId: req.body.appId,
+                clientId: req.body.clientId,
                 sessionId: req.body.sessionId,
                 state: req.body.state
             })
