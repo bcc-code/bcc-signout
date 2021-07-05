@@ -23,7 +23,7 @@ class LogoutService {
 
         const callbacks = await this.fetchCallbackUrls(userSessions)
         if (callbacks.length === 0) {
-            return { ...noAction, cause: 'No Urls have been found' }
+            return { ...noAction, cause: 'No urls have been found' }
         }
 
         const validatedState = this.validateState(
@@ -31,7 +31,7 @@ class LogoutService {
             callbacks
         )
         if (!validatedState) {
-            return { ...noAction, cause: 'State variables does not match' }
+            return { ...noAction, cause: 'State variables do not match' }
         }
 
         await this.cleanUpUserSessions(userSessions)
