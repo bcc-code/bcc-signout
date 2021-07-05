@@ -1,7 +1,7 @@
 import express from 'express'
 import debug from 'debug'
 import LogoutService from '../services/logout.service'
-const log: debug.IDebugger = debug('app:logout-controller')
+const log: debug.IDebugger = debug('controller:logout')
 
 class LogoutController {
     async triggerLogout(req: express.Request, res: express.Response) {

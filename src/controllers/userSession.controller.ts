@@ -1,7 +1,7 @@
 import express from 'express'
 import UserSessionService from '../services/userSession.service'
 import debug from 'debug'
-const log: debug.IDebugger = debug('app:userSessions-controller')
+const log: debug.IDebugger = debug('controller:userSessions')
 
 class UserSesssionController {
     async getAllUserSessions(req: express.Request, res: express.Response) {

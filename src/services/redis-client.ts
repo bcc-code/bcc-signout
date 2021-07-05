@@ -2,7 +2,7 @@ import debug from 'debug'
 const redis = require('redis')
 const { promisify } = require('util')
 
-const debugLog: debug.IDebugger = debug('redis-client')
+const debugLog: debug.IDebugger = debug('service:redis-client')
 const defaultTTL: number = 31*24*60*60 //seconds in a 31-day month
 
 const client = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST)

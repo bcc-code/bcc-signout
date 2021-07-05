@@ -3,7 +3,7 @@ import axios from 'axios'
 import { LogoutMetadata } from '../interfaces/logoutMetadata.interface'
 
 const redisClient = require('./redis-client')
-const log: debug.IDebugger = debug('app:logout-service')
+const log: debug.IDebugger = debug('service:logout')
 const noAction = { result: 'OK', message: 'No logouts were made.' }
 
 class LogoutService {

@@ -1,7 +1,9 @@
+import debug from 'debug'
 import { SessionService } from '../interfaces/sessionService.interface'
 import { UserSessionMetadata } from '../interfaces/userSessionMetadata.interface'
 import clientConfigurationService from './clientConfiguration.service'
 const redisClient = require('./redis-client')
+const log: debug.IDebugger = debug('service:userSession')
 
 class UserSessionService implements SessionService {
     async getAllUserSessions(userId: string) {
