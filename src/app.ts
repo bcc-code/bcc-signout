@@ -5,10 +5,7 @@ import * as expressWinston from 'express-winston'
 import debug from 'debug'
 import { userSessionsRouter } from './router/userSession.router'
 import { logoutRouter } from './router/logout.router'
-import { clientRouter } from './router/client.router'
 import errorMiddleware from './middlewares/error.middleware'
-
-
 
 const app: express.Application = express()
 const server: http.Server = http.createServer(app)
@@ -41,9 +38,6 @@ app.use(errorMiddleware)
 
 app.use('/usersession', userSessionsRouter)
 app.use('/logout', logoutRouter)
-if (process.env.NODE_ENV === 'development') {
-    app.use('/client', clientRouter)
-}
 
 const runningMessage = `Server running at ${hostname}:${port}, Trying to connect to redis instance ${process.env.REDIS_HOST}:${process.env.REDIS_PORT} `
 app.get('/', (req: express.Request, res: express.Response) => {
