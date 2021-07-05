@@ -1,0 +1,7 @@
+[
+    {
+        "clientId": "CLIENTID",
+        "name": "Mock Server",
+        "callbackUrl": "localhost:5555/logout"
+    }
+]
