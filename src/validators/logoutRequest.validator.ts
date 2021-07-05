@@ -13,5 +13,10 @@ export const logoutRequestValidationRules = () => {
             .withMessage('Session ID is missing')
             .isString()
             .withMessage(notAStringMessage),
+        /* body('state')
+            .exists()
+            .withMessage('state is missing')
+            .isString()
+            .withMessage(notAStringMessage), */
     ]
 }

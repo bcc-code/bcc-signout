@@ -26,6 +26,11 @@ class LogoutService {
             return { ...noAction, cause: 'No Urls have been found' }
         }
 
+        const validatedState = this.validateState(logoutMetadata.state, callbacks)
+        if (!validatedState) {
+            return { ... noAction, cause: "State variables does not match"}
+        }
+
         await this.cleanUpUserSessions(userSessions)
 
         const statuses = await this.performLogouts(
@@ -81,6 +86,24 @@ class LogoutService {
     async cleanUpUserSessions(userSessions: string[]) {
         const reply = redisClient.delAsync(userSessions)
         log(reply)
+    }
+
+    validateState(receivedState: string, callbacks: string[]): boolean {
+        log(receivedState, callbacks)
+        let validated = false
+        for (const callback of callbacks) {
+            const data = callback.split('::')
+            const url = data[0]
+            const state = data[1]
+
+            if(receivedState === state) {
+                validated = true;
+                break;
+            }
+        
+        }
+
+        return validated;
     }
 }
 
