@@ -26,9 +26,12 @@ class LogoutService {
             return { ...noAction, cause: 'No Urls have been found' }
         }
 
-        const validatedState = this.validateState(logoutMetadata.state, callbacks)
+        const validatedState = this.validateState(
+            logoutMetadata.state,
+            callbacks
+        )
         if (!validatedState) {
-            return { ... noAction, cause: "State variables does not match"}
+            return { ...noAction, cause: 'State variables does not match' }
         }
 
         await this.cleanUpUserSessions(userSessions)
@@ -96,14 +99,13 @@ class LogoutService {
             const url = data[0]
             const state = data[1]
 
-            if(receivedState === state) {
-                validated = true;
-                break;
+            if (receivedState === state) {
+                validated = true
+                break
             }
-        
         }
 
-        return validated;
+        return validated
     }
 }
 
