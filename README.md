@@ -48,6 +48,7 @@ perform POST request without any body as such: ```callbackUrl?userId=USERID&stat
 http://localhost:5555/logout?userId=auth0%7C5f7c8ec7c33c6c004bbafe82&state=state
 ```
 and then responds to caller with statuses of all login attempts.
+
 7. Important! This server wont clear your Auth0 session nor social provider session. During logout flow this responsibility still lies within client app that user wants to logout from.
 
 # infrastructure
@@ -68,4 +69,8 @@ potential ares to work on:
 - different storage for client configurations
 - encryption of communication between Auth0 and this server
 - transactions for redis operations
-- aut-logout of sessions that are nearing TTL
+- auto-logout of sessions that are nearing TTL
+
+# service Urls
+- https://signout-dev-i7vver6zya-lz.a.run.app -> signout-dev (signout-dev.bcc.no)
+- https://signout-i7vver6zya-lz.a.run.app -> signout prod (signout.bcc.no)
