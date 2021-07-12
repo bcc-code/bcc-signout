@@ -8,5 +8,10 @@
         "clientId": "w1MTu27nzbrNQ5Xe5NZWeE178ImAvdJt",
         "name": "test-client",
         "callbackUrl": "http://test-client.bcc.no/logout"
+    },
+    {
+        "clientId": "mHD7Uto7xPmyo4nVA2okg6CJCxjCDQe3",
+        "name": "testing client for first integration",
+        "callbackUrl": "http://test-client.bcc.no/logout"
     }
 ]
