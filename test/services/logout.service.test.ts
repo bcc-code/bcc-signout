@@ -15,8 +15,8 @@ describe('UserService works properly', function () {
 
     const logoutMetadata: LogoutMetadata = {
         sessionId: 'SESSIONID',
-        state: "STATE",
-        userId: "USERID"
+        state: 'STATE',
+        userId: 'USERID',
     }
 
     beforeEach(async () => {
