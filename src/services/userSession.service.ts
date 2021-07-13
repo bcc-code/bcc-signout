@@ -11,14 +11,13 @@ class UserSessionService implements SessionService {
         const appUrls = clientConfigurationService.readClientConfig(
             userSession.clientId
         )
-        if (appUrls === '') {
+        if (appUrls === []) {
             return { status: 400, message: 'Client ID not found' }
         }
 
         const { userSessionKey, userSessionCallbackUrls } = this.createUserSessionStorageData(userSession, appUrls)
-        const response = await redisClient.setExAsync(
+        const response = await redisClient.saddAsync(
             userSessionKey,
-            redisClient.defaultTTL,
             userSessionCallbackUrl
         )
         
