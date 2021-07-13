@@ -23,7 +23,7 @@ class UserSessionService implements SessionService {
 
         const ttl = await redisClient.expireAsync(userSessionKey, redisClient.defaultTTL)
         
-        if (response === 'OK') {
+        if (response === userSessionCallbackUrls.length) {
             return { message: 'OK' }
         } else {
             throw new Error(`Unexpected response from redis store: ${response}`)
