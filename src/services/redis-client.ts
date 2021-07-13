@@ -37,5 +37,6 @@ module.exports = {
     setExAsync: promisify(client.setex).bind(client),
     keysAsync: promisify(client.keys).bind(client),
     delAsync: promisify(client.del).bind(client),
+    expireAsync: promisify(client.expire).bind(client),
     defaultTTL: defaultTTL,
 }
