@@ -3,7 +3,7 @@ import { ClientConfiguration } from '../interfaces/clientConfiguration.interface
 var fs = require('fs')
 
 class ClientConfigurationService {
-    readClientConfig(clientId: string): string {
+    readClientConfig(clientId: string): string[] {
         const appsData = JSON.parse(
             fs.readFileSync('./data/clientConfig.json', 'utf8')
         ) as ClientConfiguration[]
@@ -12,10 +12,10 @@ class ClientConfigurationService {
         )
 
         if (clientData === undefined) {
-            return ''
+            return []
         }
 
-        return clientData.callbackUrl
+        return clientData.callbackUrls
     }
 }
 

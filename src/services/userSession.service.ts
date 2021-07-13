@@ -6,37 +6,47 @@ const redisClient = require('./redis-client')
 const log: debug.IDebugger = debug('service:userSession')
 
 class UserSessionService implements SessionService {
-
     async storeUserSession(userSession: UserSessionMetadata) {
-        const appUrl = clientConfigurationService.readClientConfig(
+        const appUrls = clientConfigurationService.readClientConfig(
             userSession.clientId
         )
-        if (appUrl === '') {
+        if (appUrls === []) {
             return { status: 400, message: 'Client ID not found' }
         }
 
-        const { userSessionKey, userSessionCallbackUrl } = this.createUserSessionStorageData(userSession, appUrl)
-        const response = await redisClient.setExAsync(
+        const { userSessionKey, userSessionCallbackUrls } =
+            this.createUserSessionStorageData(userSession, appUrls)
+        const response = await redisClient.saddAsync(
             userSessionKey,
-            redisClient.defaultTTL,
-            userSessionCallbackUrl
+            userSessionCallbackUrls
         )
 
-        if (response === 'OK') {
+        const ttl = await redisClient.expireAsync(
+            userSessionKey,
+            redisClient.defaultTTL
+        )
+
+        if (response === userSessionCallbackUrls.length) {
             return { message: 'OK' }
         } else {
             throw new Error(`Unexpected response from redis store: ${response}`)
         }
     }
 
-    private createUserSessionStorageData(userSession: UserSessionMetadata, appUrl: string) {
+    private createUserSessionStorageData(
+        userSession: UserSessionMetadata,
+        appUrls: string[]
+    ): { userSessionKey: string; userSessionCallbackUrls: string[] } {
+        let userSessionCallbackUrls: string[] = []
         const userSessionKey = [
             userSession.userId,
             userSession.sessionId,
             userSession.clientId,
         ].join('::')
-        const userSessionCallbackUrl = [appUrl, userSession.state].join('::')
-        return { userSessionKey, userSessionCallbackUrl }
+        appUrls.forEach((url) => {
+            userSessionCallbackUrls.push([url, userSession.state].join('::'))
+        })
+        return { userSessionKey, userSessionCallbackUrls }
     }
 }
 

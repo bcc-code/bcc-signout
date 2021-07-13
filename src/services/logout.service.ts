@@ -55,7 +55,14 @@ class LogoutService {
     }
 
     async fetchCallbackUrls(userSessions: string[]): Promise<string[]> {
-        const data = await redisClient.mgetAsync(userSessions)
+        let data: string[] = []
+        for (const userSession of userSessions) {
+            const clientUrls = await redisClient.smembersAsync(userSession)
+            clientUrls.forEach((element: string) => {
+                data.push(element)
+            })
+        }
+
         return data.filter((value: string) => value !== null)
     }
 
