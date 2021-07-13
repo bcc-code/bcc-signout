@@ -2,6 +2,7 @@ import { expect } from 'chai'
 import userSessionService from '../../src/services/userSession.service'
 import logoutService from '../../src/services/logout.service'
 import { UserSessionMetadata } from '../../src/interfaces/userSessionMetadata.interface'
+import { LogoutMetadata } from '../../src/interfaces/logoutMetadata.interface'
 const redisTestInterface = require('../setup/redis-test-interface')
 
 describe('UserService works properly', function () {
@@ -12,12 +13,19 @@ describe('UserService works properly', function () {
         state: 'STATE',
     }
 
+    const logoutMetadata: LogoutMetadata = {
+        sessionId: 'SESSIONID',
+        state: "STATE",
+        userId: "USERID"
+    }
+
     beforeEach(async () => {
         redisTestInterface.flushData()
         await userSessionService.storeUserSession(testUserSession)
     })
 
     it('properly tries to logout', async function () {
+        var result = await logoutService.performFederatedLogout(logoutMetadata)
         
     })
 })
