@@ -15,21 +15,17 @@ class UserSessionService implements SessionService {
             return { status: 400, message: 'Client ID not found' }
         }
 
-        let responses = [];
-        for (const url of appUrls) {
-            const { userSessionKey, userSessionCallbackUrl } = this.createUserSessionStorageData(userSession, url)
-            const response = await redisClient.setExAsync(
-                userSessionKey,
-                redisClient.defaultTTL,
-                userSessionCallbackUrl
-            )
-            responses.push(response)
-        }
+        const { userSessionKey, userSessionCallbackUrl } = this.createUserSessionStorageData(userSession, url)
+        const response = await redisClient.setExAsync(
+            userSessionKey,
+            redisClient.defaultTTL,
+            userSessionCallbackUrl
+        )
         
-        if (responses.every(element => element === 'OK')) {
+        if (response === 'OK') {
             return { message: 'OK' }
         } else {
-            throw new Error(`Unexpected response from redis store: ${responses}`)
+            throw new Error(`Unexpected response from redis store: ${response}`)
         }
     }
 
