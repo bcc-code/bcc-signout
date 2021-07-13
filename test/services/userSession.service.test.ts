@@ -25,10 +25,10 @@ describe('UserService works properly', function () {
             function (err: Error, res: any) {
                 console.log(res)
                 expect(res).to.be.an('array')
-                res.forEach((element:string) => {
+                res.forEach((element: string) => {
                     expect(element).to.be.a('string')
-                    expect(element).to.contain("STATE")
-                });
+                    expect(element).to.contain('STATE')
+                })
             }
         )
     })

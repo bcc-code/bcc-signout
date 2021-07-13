@@ -6,7 +6,6 @@ const redisClient = require('./redis-client')
 const log: debug.IDebugger = debug('service:userSession')
 
 class UserSessionService implements SessionService {
-
     async storeUserSession(userSession: UserSessionMetadata) {
         const appUrls = clientConfigurationService.readClientConfig(
             userSession.clientId
@@ -15,14 +14,18 @@ class UserSessionService implements SessionService {
             return { status: 400, message: 'Client ID not found' }
         }
 
-        const { userSessionKey, userSessionCallbackUrls } = this.createUserSessionStorageData(userSession, appUrls)
+        const { userSessionKey, userSessionCallbackUrls } =
+            this.createUserSessionStorageData(userSession, appUrls)
         const response = await redisClient.saddAsync(
             userSessionKey,
             userSessionCallbackUrls
         )
 
-        const ttl = await redisClient.expireAsync(userSessionKey, redisClient.defaultTTL)
-        
+        const ttl = await redisClient.expireAsync(
+            userSessionKey,
+            redisClient.defaultTTL
+        )
+
         if (response === userSessionCallbackUrls.length) {
             return { message: 'OK' }
         } else {
@@ -30,16 +33,19 @@ class UserSessionService implements SessionService {
         }
     }
 
-    private createUserSessionStorageData(userSession: UserSessionMetadata, appUrls: string[]): {userSessionKey: string, userSessionCallbackUrls:string[]} {
-        let userSessionCallbackUrls:string[] = [];
+    private createUserSessionStorageData(
+        userSession: UserSessionMetadata,
+        appUrls: string[]
+    ): { userSessionKey: string; userSessionCallbackUrls: string[] } {
+        let userSessionCallbackUrls: string[] = []
         const userSessionKey = [
             userSession.userId,
             userSession.sessionId,
             userSession.clientId,
         ].join('::')
-        appUrls.forEach(url => {
+        appUrls.forEach((url) => {
             userSessionCallbackUrls.push([url, userSession.state].join('::'))
-        });
+        })
         return { userSessionKey, userSessionCallbackUrls }
     }
 }
