@@ -6,10 +6,6 @@ const redisClient = require('./redis-client')
 const log: debug.IDebugger = debug('service:userSession')
 
 class UserSessionService implements SessionService {
-    async getAllUserSessions(userId: string) {
-        const ok = await redisClient.smembersAsync(userId)
-        return ok
-    }
 
     async storeUserSession(userSession: UserSessionMetadata) {
         const appUrl = clientConfigurationService.readClientConfig(
@@ -19,12 +15,7 @@ class UserSessionService implements SessionService {
             return { status: 400, message: 'Client ID not found' }
         }
 
-        const userSessionKey = [
-            userSession.userId,
-            userSession.sessionId,
-            userSession.clientId,
-        ].join('::')
-        const userSessionCallbackUrl = appUrl + '::' + userSession.state
+        const { userSessionKey, userSessionCallbackUrl } = this.createUserSessionStorageData(userSession, appUrl)
         const response = await redisClient.setExAsync(
             userSessionKey,
             redisClient.defaultTTL,
@@ -36,6 +27,16 @@ class UserSessionService implements SessionService {
         } else {
             throw new Error(`Unexpected response from redis store: ${response}`)
         }
+    }
+
+    private createUserSessionStorageData(userSession: UserSessionMetadata, appUrl: string) {
+        const userSessionKey = [
+            userSession.userId,
+            userSession.sessionId,
+            userSession.clientId,
+        ].join('::')
+        const userSessionCallbackUrl = [appUrl, userSession.state].join('::')
+        return { userSessionKey, userSessionCallbackUrl }
     }
 }
 
