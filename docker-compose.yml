@@ -18,15 +18,4 @@ services:
         - PORT=4040
         command:
             sh -c 'npm start'
-    mockServer:
-        image: mockserver/mockserver:latest
-        ports:
-            - 1080:1080
-        environment:
-            MOCKSERVER_PROPERTY_FILE: /config/mockServer.properties
-            MOCKSERVER_INITIALIZATION_JSON_PATH: /config/initializer.json
-        volumes:
-            - type: bind
-              source: ./mockServer
-              target: /config
   
