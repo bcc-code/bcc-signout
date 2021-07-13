@@ -87,7 +87,7 @@ class LogoutService {
     }
 
     async cleanUpUserSessions(userSessions: string[]) {
-        const reply = redisClient.delAsync(userSessions)
+        const reply = await redisClient.delAsync(userSessions)
         log(reply)
     }
 
