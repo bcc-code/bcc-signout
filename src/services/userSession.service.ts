@@ -8,24 +8,28 @@ const log: debug.IDebugger = debug('service:userSession')
 class UserSessionService implements SessionService {
 
     async storeUserSession(userSession: UserSessionMetadata) {
-        const appUrl = clientConfigurationService.readClientConfig(
+        const appUrls = clientConfigurationService.readClientConfig(
             userSession.clientId
         )
-        if (appUrl === '') {
+        if (appUrls === '') {
             return { status: 400, message: 'Client ID not found' }
         }
 
-        const { userSessionKey, userSessionCallbackUrl } = this.createUserSessionStorageData(userSession, appUrl)
-        const response = await redisClient.setExAsync(
-            userSessionKey,
-            redisClient.defaultTTL,
-            userSessionCallbackUrl
-        )
-
-        if (response === 'OK') {
+        let responses = [];
+        for (const url of appUrls) {
+            const { userSessionKey, userSessionCallbackUrl } = this.createUserSessionStorageData(userSession, url)
+            const response = await redisClient.setExAsync(
+                userSessionKey,
+                redisClient.defaultTTL,
+                userSessionCallbackUrl
+            )
+            responses.push(response)
+        }
+        
+        if (responses.every(element => element === 'OK')) {
             return { message: 'OK' }
         } else {
-            throw new Error(`Unexpected response from redis store: ${response}`)
+            throw new Error(`Unexpected response from redis store: ${responses}`)
         }
     }
 
