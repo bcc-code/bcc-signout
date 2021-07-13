@@ -14,6 +14,7 @@ describe('UserService works properly', function () {
 
     beforeEach(async () => {
         redisTestInterface.flushData()
+        await userSessionService.storeUserSession(testUserSession)
     })
 
     it('properly tries to logout', async function () {
