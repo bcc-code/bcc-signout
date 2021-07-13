@@ -12,6 +12,6 @@
     {
         "clientId": "mHD7Uto7xPmyo4nVA2okg6CJCxjCDQe3",
         "name": "testing client for first integration",
-        "callbackUrl": "https://www.frabegynnelsen.no/"
+        "callbackUrl": ["https://www.frabegynnelsen.no/","https://localhost:5001/"]
     }
 ]
