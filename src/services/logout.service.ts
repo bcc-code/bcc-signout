@@ -54,7 +54,7 @@ class LogoutService {
         return { result: 'OK', message: 'All logouts sucessfull.' }
     }
 
-    async fetchCallbackUrls(userSessions: string[]): Promise<string[]> {
+    private async fetchCallbackUrls(userSessions: string[]): Promise<string[]> {
         let data: string[] = []
         for (const userSession of userSessions) {
             const clientUrls = await redisClient.smembersAsync(userSession)
@@ -66,7 +66,7 @@ class LogoutService {
         return data.filter((value: string) => value !== null)
     }
 
-    async performLogouts(userId: string, callbackUrls: string[]) {
+    private async performLogouts(userId: string, callbackUrls: string[]) {
         let responses = []
         for (const callback of callbackUrls) {
             const data = callback.split('::')
@@ -93,12 +93,12 @@ class LogoutService {
         return responses
     }
 
-    async cleanUpUserSessions(userSessions: string[]) {
+    private async cleanUpUserSessions(userSessions: string[]) {
         const reply = await redisClient.delAsync(userSessions)
         log(reply)
     }
 
-    validateState(receivedState: string, callbacks: string[]): boolean {
+    private validateState(receivedState: string, callbacks: string[]): boolean {
         log(receivedState, callbacks)
         let validated = false
         for (const callback of callbacks) {
