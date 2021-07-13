@@ -2,16 +2,16 @@
     {
         "clientId": "CLIENTID",
         "name": "Mock Server",
-        "callbackUrl": ["http://localhost:5555/logout"]
+        "callbackUrls": ["http://localhost:5555/logout"]
     },
     {
         "clientId": "w1MTu27nzbrNQ5Xe5NZWeE178ImAvdJt",
         "name": "test-client",
-        "callbackUrl": ["http://test-client.bcc.no/logout"]
+        "callbackUrls": ["http://test-client.bcc.no/logout"]
     },
     {
         "clientId": "mHD7Uto7xPmyo4nVA2okg6CJCxjCDQe3",
         "name": "testing client for first integration",
-        "callbackUrl": ["https://www.frabegynnelsen.no/","https://localhost:5001/"]
+        "callbackUrls": ["https://www.frabegynnelsen.no/","https://localhost:5001/"]
     }
 ]
