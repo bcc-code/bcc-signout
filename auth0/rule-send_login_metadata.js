@@ -2,12 +2,13 @@ function (user, context, callback) {
     const initSlackNotify = require('slack-notify');
     const slackWebHookUrl = "";
     const slack = initSlackNotify(slackWebHookUrl);
-    if (!!user.clientID && !!user.user_id && !!context.sessionID && !!context.request.query.state) {
+    if (!!user.clientID && !!user.user_id && !!context.sessionID && !!context.request.query.state && user.clientID === "mHD7Uto7xPmyo4nVA2okg6CJCxjCDQe3") {
         const fetch = require('node-fetch');
 
-        const localServiceUrl = "";
+        //const localServiceUrl = "";
         const devServiceUrl = "";
-        const finalServiceUrl = localServiceUrl + "/usersession/" + user.user_id;
+        const prodServiceUrl = "https://signout.bcc.no";
+        const finalServiceUrl = prodServiceUrl + "/usersession/" + user.user_id;
         
         const messageBody = JSON.parse(JSON.stringify({
             clientId: user.clientID,
@@ -23,7 +24,10 @@ function (user, context, callback) {
         fetch(finalServiceUrl, {
             method: 'post',
             body: JSON.stringify(messageBody),
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+              'Content-Type': 'application/json',
+            	'Authorization': configuration.Auth0_signout_secret
+            },
         })
             .catch(err => {
                 slack.success({
