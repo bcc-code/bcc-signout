@@ -1,0 +1,51 @@
+steps:
+  #prepare .env file
+  - name: node:14.17.1
+    id: "setup-env-vars"
+    entrypoint: npm
+    args: ["run","create-env"]
+    env:
+      - PORT=$_PORT
+      - REDIS_PORT=$_REDIS_PORT
+      - REDIS_HOST=$_REDIS_HOST
+      - TEST=test
+  #build server
+  - name: gcr.io/cloud-builders/docker
+    id: "signout-backend"
+    waitFor: ['setup-env-vars']
+    args:
+      [
+        "build",
+        "-f",
+        "Dockerfile",
+        "-t",
+        "$_IMAGE_NAME",
+        ".",
+      ]  
+  #push image
+  - name: gcr.io/cloud-builders/docker
+    id: "push"
+    waitFor: ["signout-backend"]
+    args:
+      [
+        "push",
+        "$_IMAGE_NAME"
+      ]
+  #deploy to cloud run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    waitFor: ["push"]
+    args:
+      - 'run'
+      - 'deploy'
+      - '$_SERVICE_NAME'
+      - '--image'
+      - '$_IMAGE_NAME'
+      - '--region'
+      - 'europe-north1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--port'
+      - '4040'
+      - --vpc-connector 
+      - $_VPC_CONNECTOR

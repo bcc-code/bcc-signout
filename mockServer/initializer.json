@@ -1,0 +1,15 @@
+[
+    {
+        "httpRequest": {
+            "method": "POST",
+            "path": "/logout",
+            "queryStringParameters": {
+                "userId": ["auth0|605deca370c302006e0c2359"]
+            }
+        },
+        "httpResponse": {
+            "body": "{\"logout\": true}",
+            "statusCode": 200
+        }
+    }
+]
