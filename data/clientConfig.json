@@ -12,6 +12,6 @@
     {
         "clientId": "mHD7Uto7xPmyo4nVA2okg6CJCxjCDQe3",
         "name": "testing client for first integration",
-        "callbackUrl": "http://test-client.bcc.no/logout"
+        "callbackUrl": "https://www.frabegynnelsen.no/"
     }
 ]
