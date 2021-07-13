@@ -5,7 +5,9 @@ export const userSessionValidationRules = () => {
     return [
         header('Authorization')
             .exists()
-            .custom(value => value === process.env.AUTH0_SECRET),
+            .withMessage('Authorization header is missing')
+            .custom(value => value === process.env.AUTH0_SECRET)
+            .withMessage('Authorization secret is not correct'),
         param('userId')
             .exists()
             .withMessage('User ID is missing')
