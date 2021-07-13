@@ -2,7 +2,7 @@
     {
         "clientId": "CLIENTID",
         "name": "Mock Server",
-        "callbackUrls": ["http://localhost:5555/logout"]
+        "callbackUrls": ["http://localhost:5555/logout", "https://localhost:5555/logout2"]
     },
     {
         "clientId": "w1MTu27nzbrNQ5Xe5NZWeE178ImAvdJt",
