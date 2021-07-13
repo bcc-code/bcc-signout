@@ -24,7 +24,11 @@ describe('UserService works properly', function () {
             'USERID::SESSIONID::CLIENTID',
             function (err: Error, res: any) {
                 console.log(res)
-                expect(res).to.be.a('string').to.contain('STATE')
+                expect(res).to.be.an('array')
+                res.forEach((element:string) => {
+                    expect(element).to.be.a('string')
+                    expect(element).to.contain("STATE")
+                });
             }
         )
     })
