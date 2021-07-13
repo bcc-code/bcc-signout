@@ -15,7 +15,7 @@ class UserSessionService implements SessionService {
             return { status: 400, message: 'Client ID not found' }
         }
 
-        const { userSessionKey, userSessionCallbackUrl } = this.createUserSessionStorageData(userSession, url)
+        const { userSessionKey, userSessionCallbackUrls } = this.createUserSessionStorageData(userSession, appUrls)
         const response = await redisClient.setExAsync(
             userSessionKey,
             redisClient.defaultTTL,
@@ -29,14 +29,17 @@ class UserSessionService implements SessionService {
         }
     }
 
-    private createUserSessionStorageData(userSession: UserSessionMetadata, appUrl: string) {
+    private createUserSessionStorageData(userSession: UserSessionMetadata, appUrls: string[]): {userSessionKey: string, userSessionCallbackUrls:string[]} {
+        let userSessionCallbackUrls:string[] = [];
         const userSessionKey = [
             userSession.userId,
             userSession.sessionId,
             userSession.clientId,
         ].join('::')
-        const userSessionCallbackUrl = [appUrl, userSession.state].join('::')
-        return { userSessionKey, userSessionCallbackUrl }
+        appUrls.forEach(url => {
+            userSessionCallbackUrls.push([url, userSession.state].join('::'))
+        });
+        return { userSessionKey, userSessionCallbackUrls }
     }
 }
 
