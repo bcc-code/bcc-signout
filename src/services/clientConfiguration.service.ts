@@ -15,7 +15,7 @@ class ClientConfigurationService {
             return ''
         }
 
-        return clientData.callbackUrl
+        return clientData.callbackUrls
     }
 }
 
