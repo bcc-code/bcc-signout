@@ -18,7 +18,7 @@ class UserSessionService implements SessionService {
         const { userSessionKey, userSessionCallbackUrls } = this.createUserSessionStorageData(userSession, appUrls)
         const response = await redisClient.saddAsync(
             userSessionKey,
-            userSessionCallbackUrl
+            userSessionCallbackUrls
         )
         
         if (response === 'OK') {
