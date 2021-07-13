@@ -20,6 +20,8 @@ class UserSessionService implements SessionService {
             userSessionKey,
             userSessionCallbackUrls
         )
+
+        const ttl = await redisClient.expireAsync(userSessionKey, redisClient.defaultTTL)
         
         if (response === 'OK') {
             return { message: 'OK' }
