@@ -6,7 +6,7 @@ const log: debug.IDebugger = debug('controller:logout')
 class LogoutController {
     async triggerLogout(req: express.Request, res: express.Response) {
         log(req.params)
-        if(req.query.userId && req.query.sessionId) {
+        if (req.query.userId && req.query.sessionId) {
             const logoutActions = await LogoutService.performFederatedLogout({
                 userId: req.query.userId.toString(),
                 sessionId: req.query.sessionId.toString(),
@@ -21,12 +21,9 @@ class LogoutController {
             }
         } else {
             res.status(422).json({
-                message:
-                    'Query params are missing',
+                message: 'Query params are missing',
             })
-
         }
-        
     }
 }
 
