@@ -14,10 +14,9 @@
     },
     {
         "clientId": "mHD7Uto7xPmyo4nVA2okg6CJCxjCDQe3",
-        "name": "testing client for first integration",
+        "name": "frabegynnelsen.no",
         "callbackUrls": [
-            "https://www.frabegynnelsen.no/",
-            "https://localhost:5001/"
+            "https://wpengine.frabegynnelsen.no/wp-json/bcc-signon/logout"
         ]
     }
 ]
