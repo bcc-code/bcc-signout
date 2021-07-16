@@ -1,22 +1,17 @@
-import { body, param } from 'express-validator'
+import { query } from 'express-validator'
 
 const notAStringMessage = 'Value was not a string'
 export const logoutRequestValidationRules = () => {
     return [
-        param('userId')
+        query('userId')
             .exists()
             .withMessage('User ID is missing')
             .isString()
             .withMessage(notAStringMessage),
-        body('sessionId')
+        query('sessionId')
             .exists()
             .withMessage('Session ID is missing')
             .isString()
             .withMessage(notAStringMessage),
-        /* body('state')
-            .exists()
-            .withMessage('state is missing')
-            .isString()
-            .withMessage(notAStringMessage), */
     ]
 }

@@ -6,8 +6,8 @@ import { logoutRequestValidationRules } from '../validators/logoutRequest.valida
 const router = express.Router()
 
 router
-    .route('/:userId')
-    .post(
+    .route('/')
+    .get(
         logoutRequestValidationRules(),
         validate,
         logoutController.triggerLogout

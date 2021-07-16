@@ -35,12 +35,9 @@ This repository contains docker-compose file that could be used to run redis, th
 ````
 3. Backend fetches application (by clientId) logout Url, that will be used to perform single logout (currently mapping from client_ids to urls is maintained in static JSON file)
 4. Data is saved in redis instance as simple Key -> Value ```USERID::SESSIONID::CLIENTID -> URL::STATE``` with TTL seto to 31 days
-5. This server has also another endpoint ```logout/:userID``` that accepts POST requests with specified payload:
-```json
-{
-    "sessionId": "sessionID",
-    "state": "STATE"
-}
+5. This server has also another endpoint ```logout``` that accepts GET requests with NEEDED query params:
+```url
+SERVER_URL/logout?userId=USERID&sessionId=SESSIONID
 ````
 6. Server checks for existence of said session, and once confirmed fetches all stored sessions of same SessionId for this user and tries to 
 perform POST request without any body as such: ```callbackUrl?userId=USERID&state=STATE```, for example
