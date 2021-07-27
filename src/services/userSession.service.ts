@@ -10,7 +10,7 @@ class UserSessionService implements SessionService {
         const appUrls = clientConfigurationService.readClientConfig(
             userSession.clientId
         )
-        if (appUrls === []) {
+        if (appUrls[0] === '') {
             return { status: 400, message: 'Client ID not found' }
         }
 
@@ -35,7 +35,7 @@ class UserSessionService implements SessionService {
 
     private createUserSessionStorageData(
         userSession: UserSessionMetadata,
-        appUrls: string[]
+        appUrls: [string, string[]]
     ): { userSessionKey: string; userSessionCallbackUrls: string[] } {
         let userSessionCallbackUrls: string[] = []
         const userSessionKey = [
@@ -43,8 +43,10 @@ class UserSessionService implements SessionService {
             userSession.sessionId,
             userSession.clientId,
         ].join('::')
-        appUrls.forEach((url) => {
-            userSessionCallbackUrls.push([url, userSession.state].join('::'))
+        appUrls[1].forEach((url) => {
+            userSessionCallbackUrls.push(
+                [url, appUrls[0], userSession.state].join('::')
+            )
         })
         return { userSessionKey, userSessionCallbackUrls }
     }

@@ -40,9 +40,9 @@ This repository contains docker-compose file that could be used to run redis, th
 SERVER_URL/logout?userId=USERID&sessionId=SESSIONID
 ````
 6. Server checks for existence of said session, and once confirmed fetches all stored sessions of same SessionId for this user and tries to 
-perform POST request without any body as such: ```callbackUrl?userId=USERID&state=STATE```, for example
+perform GET request without any body as such: ```callbackUrl?state=STATE```, for example
 ```
-http://localhost:5555/logout?userId=auth0%7C5f7c8ec7c33c6c004bbafe82&state=state
+http://localhost:5555/logout?state=state
 ```
 and then responds to caller with statuses of all login attempts.
 
