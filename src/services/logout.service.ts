@@ -63,14 +63,27 @@ class LogoutService {
         for (const callback of callbackUrls) {
             const data = callback.split('::')
             const url = data[0]
-            const state = data[1]
+            const method = data[1]
+            const state = data[2]
 
             try {
-                const reply = await axios.get(url, {
-                    params: {
-                        state: state
-                    }
-                })
+                let reply = {status: '', statusText: ''};
+                if(method === "GET") {
+                    reply = await axios.get(url, {
+                        params: {
+                            state: state,
+                        },
+                    })
+                } else if (method === "POST") {
+                    reply = await axios.post(url, null, {
+                        params: {
+                            state: state,
+                        },
+                    })
+                } else {
+                    continue;
+                }
+                
                 responses.push({
                     status: reply.status,
                     message: reply.statusText,
