@@ -66,11 +66,10 @@ class LogoutService {
             const state = data[1]
 
             try {
-                const reply = await axios.post(url, null, {
+                const reply = await axios.get(url, {
                     params: {
-                        userId: userId,
-                        state: state,
-                    },
+                        state: state
+                    }
                 })
                 responses.push({
                     status: reply.status,
