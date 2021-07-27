@@ -28,6 +28,7 @@ describe('UserService works properly', function () {
                 res.forEach((element: string) => {
                     expect(element).to.be.a('string')
                     expect(element).to.contain('STATE')
+                    expect(element).to.contain('GET')
                 })
             }
         )
