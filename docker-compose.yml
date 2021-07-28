@@ -1,23 +1,28 @@
 version: '3.8'
 
 services:
-    service:
+    signout:
         build: ./
         links:
-        - redis
+            - redis
         ports:
-        - 4040:4040
+            - 4040:4040
         environment:
-        - REDIS_HOST=redis
-        - NODE_ENV=development
-        - PORT=4040
+            - REDIS_HOST=redis
+            - NODE_ENV=development
+            - PORT=4040
+            - AESKEY=AESKEYAESKEYAESKEYAESKEYAESKEY12
+            - AUTH0_SECRET=AUTH0_SECRET
         command:
             sh -c 'npm start'
-        depends_on: redis
+        depends_on: 
+            - redis
     redis:
         image: redis
         container_name: redis
-        expose:
-        - 6379
-    mockServer:
+        ports:
+            - 6379:6379
+    mockserver:
         build: ./mockServer
+        ports:
+            - 5555:5555
