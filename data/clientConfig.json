@@ -4,7 +4,7 @@
         "name": "Mock Server",
         "method": "GET",
         "callbackUrls": [
-            "http://localhost:5555/logout"
+            "http://mockserver:5555/logout"
         ]
     },
     {
