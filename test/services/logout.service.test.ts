@@ -7,7 +7,7 @@ const redisTestInterface = require('../setup/redis-test-interface')
 
 describe('UserService works properly', function () {
     const testUserSession: UserSessionMetadata = {
-        clientId: 'CLIENTID',
+        clientId: 'CLIENT_ID',
         userId: 'USERID',
         sessionId: 'SESSIONID',
         state: 'STATE',

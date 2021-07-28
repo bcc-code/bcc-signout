@@ -5,7 +5,7 @@ const redisTestInterface = require('../setup/redis-test-interface')
 
 describe('UserService works properly', function () {
     const testUserSession: UserSessionMetadata = {
-        clientId: 'CLIENTID',
+        clientId: 'CLIENT_ID',
         userId: 'USERID',
         sessionId: 'SESSIONID',
         state: 'STATE',
@@ -21,7 +21,7 @@ describe('UserService works properly', function () {
         expect(result).to.be.an('object').that.has.property('message', 'OK')
 
         var readOut = redisTestInterface.client.smembers(
-            'USERID::SESSIONID::CLIENTID',
+            'USERID::SESSIONID::CLIENT_ID',
             function (err: Error, res: any) {
                 console.log(res)
                 expect(res).to.be.an('array')
