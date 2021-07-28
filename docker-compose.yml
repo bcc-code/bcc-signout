@@ -1,11 +1,6 @@
 version: '3.8'
 
 services:
-    redis:
-        image: redis
-        container_name: redis
-        expose:
-        - 6379
     service:
         build: ./
         links:
@@ -18,4 +13,11 @@ services:
         - PORT=4040
         command:
             sh -c 'npm start'
-  
+        depends_on: redis
+    redis:
+        image: redis
+        container_name: redis
+        expose:
+        - 6379
+    mockServer:
+        build: ./mockServer
