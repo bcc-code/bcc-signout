@@ -10,6 +10,8 @@ you must create .env file with these keys
 REDIS_HOST
 REDIS_PORT
 PORT
+AUTH0_SECRET=AUTH0_SECRET
+ENVIRONMENT=TEST
 ```
 
 
