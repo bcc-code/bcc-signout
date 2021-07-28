@@ -1,11 +1,10 @@
 [
     {
-        "clientId": "CLIENTID",
+        "clientId": "CLIENT_ID",
         "name": "Mock Server",
         "method": "GET",
         "callbackUrls": [
-            "http://localhost:5555/logout",
-            "https://localhost:5555/logout2"
+            "http://localhost:5555/logout"
         ]
     },
     {
