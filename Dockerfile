@@ -5,6 +5,7 @@ RUN npm ci
 COPY ./tsconfig.json ./tsconfig.json
 COPY ./src ./src
 COPY ./data ./data
+COPY ./test ./test
 COPY ./.env ./.env
 RUN npm run build
 CMD ["npm", "start"]
