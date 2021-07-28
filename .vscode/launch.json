@@ -29,6 +29,17 @@
             "port": 9231,
             "address": "localhost",
             "restart": true
-        }
+        },
+        {
+            "name": "Attach to Mocha in Docker",
+            "type": "node",
+            "request": "attach",
+            "port": 9231,
+            "address": "localhost",
+            "restart": true,
+            "sourceMaps": true,
+            "localRoot": "${workspaceRoot}/server",
+            "remoteRoot": "/opt/membership/server"
+        },
     ]
 }
