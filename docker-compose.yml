@@ -7,6 +7,7 @@ services:
             - redis
         ports:
             - 4040:4040
+            - 9229:9229
         environment:
             - REDIS_HOST=redis
             - NODE_ENV=development
@@ -14,7 +15,7 @@ services:
             - AESKEY=AESKEYAESKEYAESKEYAESKEYAESKEY12
             - AUTH0_SECRET=AUTH0_SECRET
         command:
-            sh -c 'npm start'
+            sh -c 'npm run docker'
         depends_on: 
             - redis
     redis:
