@@ -26,11 +26,7 @@ class UserSessionService implements SessionService {
             redisClient.defaultTTL
         )
 
-        if (response === userSessionCallbackUrls.length) {
-            return { message: 'OK' }
-        } else {
-            throw new Error(`Unexpected response from redis store: ${response}`)
-        }
+        return { message: 'OK' }
     }
 
     private createUserSessionStorageData(

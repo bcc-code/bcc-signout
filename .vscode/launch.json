@@ -12,12 +12,34 @@
             "restart": true
         },
         {
+            "type": "node",
+            "request": "attach",
+            "name": "Debug server - in docker",
+            "port": 9229,
+            "address": "localhost",
+            "localRoot": "${workspaceFolder}",
+            "remoteRoot": "/opt/membership/server",
+            "protocol": "inspector",
+            "restart": true
+        },
+        {
             "name": "Attach to Mocha",
             "type": "node",
             "request": "attach",
             "port": 9231,
             "address": "localhost",
             "restart": true
-        }
+        },
+        {
+            "name": "Attach to Mocha in Docker",
+            "type": "node",
+            "request": "attach",
+            "port": 9231,
+            "address": "localhost",
+            "restart": true,
+            "sourceMaps": true,
+            "localRoot": "${workspaceRoot}/server",
+            "remoteRoot": "/opt/membership/server"
+        },
     ]
 }

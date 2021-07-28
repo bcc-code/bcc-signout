@@ -5,9 +5,9 @@ import { UserSessionMetadata } from '../../src/interfaces/userSessionMetadata.in
 import { LogoutMetadata } from '../../src/interfaces/logoutMetadata.interface'
 const redisTestInterface = require('../setup/redis-test-interface')
 
-describe('UserService works properly', function () {
+describe('Logout Service works properly', function () {
     const testUserSession: UserSessionMetadata = {
-        clientId: 'CLIENTID',
+        clientId: 'CLIENT_ID',
         userId: 'USERID',
         sessionId: 'SESSIONID',
         state: 'STATE',

@@ -8,9 +8,11 @@
         "start": "node -r dotenv/config ./dist/app.js",
         "dev": "nodemon -r dotenv/config --inspect=0.0.0.0:9229 ./src/app.ts",
         "debug": "export DEBUG=*,-controller:* && npm run dev",
-        "test": "mocha -r ts-node/register \"test/**/*.ts\" --unhandled-rejections=strict --recursive --exit --timeout 5000",
-        "test-dev": "mocha -r ts-node/register \"test/**/*.ts\" --unhandled-rejections=strict --recursive --exit --timeout 5000 --inspect-brk=0.0.0.0:9231",
+        "docker": "export DEBUG=*,-controller:* && node -r dotenv/config -r ts-node/register --inspect=0.0.0.0:9229 ./src/app.ts",
+        "test": "export ENVIRONMENT=TEST && mocha -r ts-node/register \"test/services/*.ts\" --unhandled-rejections=strict --recursive --exit --timeout 5000",
+        "test-dev": "mocha -r ts-node/register \"test/services/*.ts\" --unhandled-rejections=strict --recursive --exit --timeout 5000 --inspect-brk=0.0.0.0:9231",
         "test-debug": "export DEBUG=*,-controller:* && npm run test-dev",
+        "test-e2e": "mocha -r ts-node/register \"test/e2e/*.ts\" --unhandled-rejections=strict --recursive --exit --timeout 5000",
         "pretty": "prettier --write \"./**/*.{js,jsx,json,ts}\"",
         "create-env": "printenv > .env"
     },

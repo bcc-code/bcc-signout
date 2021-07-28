@@ -6,7 +6,7 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-app.post('/logout', (req, res) => {
+app.get('/logout', (req, res) => {
     res.status(200).send(
         `Logged Out user: ${req.query.userId} state: ${req.query.state}`
     )

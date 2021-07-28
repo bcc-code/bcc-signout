@@ -1,20 +1,5 @@
 [
     {
-        "clientId": "CLIENTID",
-        "name": "Mock Server",
-        "method": "GET",
-        "callbackUrls": [
-            "http://localhost:5555/logout",
-            "https://localhost:5555/logout2"
-        ]
-    },
-    {
-        "clientId": "w1MTu27nzbrNQ5Xe5NZWeE178ImAvdJt",
-        "name": "test-client",
-        "method": "GET",
-        "callbackUrls": ["http://test-client.bcc.no/logout"]
-    },
-    {
         "clientId": "mHD7Uto7xPmyo4nVA2okg6CJCxjCDQe3",
         "name": "frabegynnelsen.no",
         "method": "GET",
