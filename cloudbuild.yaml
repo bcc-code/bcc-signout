@@ -11,10 +11,46 @@ steps:
         "$_IMAGE_NAME",
         ".",
       ]
+  #prepare for testing
+  - name: gcr.io/cloud-builders/npm
+    id: 'tests:preparation'
+    waitFor: ['signout-backend']
+    args: ['ci']
+  #run docker-compose
+  - name: 'docker/compose:1.28.2'
+    args: 
+      [
+        '-f',
+        'docker-compose.yml',
+        'up', 
+        '-d'
+      ]
+    id: 'tests:docker-compose'
+    waitFor: ['tests:preparation']
+  #run integration tests
+  - name: gcr.io/cloud-builders/npm
+    id: 'tests:integration'
+    waitFor: ['tests:docker-compose']
+    args: ['run', 'test']
+  #run e2e tests
+  - name: gcr.io/cloud-builders/npm
+    id: 'tests:e2e'
+    waitFor: ['tests:integration']
+    args: ['run', 'test-e2e']
+  #tests cleanup
+  - name: 'docker/compose:1.28.2'
+    args: 
+      [
+        '-f',
+        'docker-compose.yml',
+        'down'
+      ]
+    id: 'tests:cleanup'
+    waitFor: ['tests:e2e']  
   #push image
   - name: gcr.io/cloud-builders/docker
     id: "push"
-    waitFor: ["signout-backend"]
+    waitFor: ["tests:cleanup"]
     args:
       [
         "push",
