@@ -23,6 +23,11 @@ steps:
         "$_IMAGE_NAME",
         ".",
       ]
+  #prepare for testing
+  - name: gcr.io/cloud-builders/npm
+    id: 'tests:preparation'
+    waitFor: ['signout-backend']
+    args: ['ci']
   #run docker-compose
   - name: 'docker/compose:1.28.2'
     args: 
@@ -33,7 +38,7 @@ steps:
         '-d'
       ]
     id: 'tests:docker-compose'
-    waitFor: ['signout-backend']
+    waitFor: ['tests:preparation']
   #run integration tests
   - name: gcr.io/cloud-builders/npm
     id: 'tests:integration'
