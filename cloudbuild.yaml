@@ -36,13 +36,11 @@ steps:
     waitFor: ['signout-backend']
   #run integration tests
   - name: gcr.io/cloud-builders/npm
-    entrypoint: 'bash'
     id: 'tests:integration'
     waitFor: ['tests:docker-compose']
     args: ['npm run test']
   #run e2e tests
   - name: gcr.io/cloud-builders/npm
-    entrypoint: 'bash'
     id: 'tests:e2e'
     waitFor: ['tests:integration']
     args: ['npm run test-e2e']
