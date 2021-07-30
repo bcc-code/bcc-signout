@@ -28,7 +28,7 @@ steps:
     args: 
       [
         '-f',
-        'docker-compose.yaml',
+        'docker-compose.yml',
         'up', 
         '-d'
       ]
@@ -51,7 +51,7 @@ steps:
     args: 
       [
         '-f',
-        'docker-compose.yaml',
+        'docker-compose.yml',
         'down'
       ]
     id: 'tests:cleanup'
