@@ -25,7 +25,6 @@ describe('Logout Service works properly', function () {
 
     it('properly tries to logout', async function () {
         var result = await logoutService.performFederatedLogout(logoutMetadata)
-        console.log(result)
         expect(result).to.be.an('object')
         expect(result).to.have.deep.property('message')
         expect(result).to.have.deep.property('result')
