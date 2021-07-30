@@ -22,7 +22,40 @@ steps:
         "-t",
         "$_IMAGE_NAME",
         ".",
-      ]  
+      ]
+  #run docker-compose
+  - name: 'docker/compose:1.28.2'
+    args: 
+      [
+        '-f',
+        'docker-compose.yaml',
+        'up', 
+        '-d'
+      ]
+    id: 'tests:docker-compose'
+    waitFor: ['signout-backend']
+  #run integration tests
+  - name: gcr.io/cloud-builders/npm
+    entrypoint: 'bash'
+    id: 'tests:integration'
+    waitFor: ['tests:docker-compose']
+    args: ['npm run test']
+  #run e2e tests
+  - name: gcr.io/cloud-builders/npm
+    entrypoint: 'bash'
+    id: 'tests:e2e'
+    waitFor: ['tests:integration']
+    args: ['npm run test-e2e']
+  #tests cleanup
+  - name: 'docker/compose:1.28.2'
+    args: 
+      [
+        '-f',
+        'docker-compose.yaml',
+        'down'
+      ]
+    id: 'tests:cleanup'
+    waitFor: ['tests:e2e']  
   #push image
   - name: gcr.io/cloud-builders/docker
     id: "push"
