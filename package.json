@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "build": "tsc",
-        "start": "node -r dotenv/config ./dist/src/app.js",
+        "start": "npm run create-env && node -r dotenv/config ./dist/src/app.js",
         "dev": "nodemon -r dotenv/config --inspect=0.0.0.0:9229 ./src/app.ts",
         "debug": "export DEBUG=*,-controller:* && npm run dev",
         "docker": "export DEBUG=*,-controller:* && node -r dotenv/config -r ts-node/register --inspect=0.0.0.0:9229 ./src/app.ts",
