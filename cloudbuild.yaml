@@ -1,19 +1,7 @@
 steps:
-  #prepare .env file
-  - name: node:14.17.1
-    id: "setup-env-vars"
-    entrypoint: npm
-    args: ["run","create-env"]
-    env:
-      - PORT=$_PORT
-      - REDIS_PORT=$_REDIS_PORT
-      - REDIS_HOST=$_REDIS_HOST
-      - AUTH0_SECRET=$_AUTH0_SECRET
-      - ENVIRONMENT=$_TEST
   #build server
   - name: gcr.io/cloud-builders/docker
     id: "signout-backend"
-    waitFor: ['setup-env-vars']
     args:
       [
         "build",
@@ -22,11 +10,44 @@ steps:
         "-t",
         "$_IMAGE_NAME",
         ".",
-      ]  
+      ]
+  #run docker-compose
+  - name: 'docker/compose:1.28.2'
+    args: 
+      [
+        '-f',
+        'docker-compose.yml',
+        'up', 
+        '-d'
+      ]
+    id: 'tests:docker-compose'
+    waitFor: ['signout-backend']
+  #run integration tests
+  - name: gcr.io/cloud-builders/docker
+    id: 'tests:integration'
+    entrypoint: 'bash'
+    waitFor: ['tests:docker-compose']
+    args: ['./scripts/run-integration-tests.sh']
+  #run e2e tests
+  - name: gcr.io/cloud-builders/docker
+    id: 'tests:e2e'
+    entrypoint: 'bash'
+    waitFor: ['tests:integration']
+    args: ['./scripts/run-e2e-tests.sh']
+  #tests cleanup
+  - name: 'docker/compose:1.28.2'
+    args: 
+      [
+        '-f',
+        'docker-compose.yml',
+        'down'
+      ]
+    id: 'tests:cleanup'
+    waitFor: ['tests:e2e']  
   #push image
   - name: gcr.io/cloud-builders/docker
     id: "push"
-    waitFor: ["signout-backend"]
+    waitFor: ["tests:cleanup"]
     args:
       [
         "push",

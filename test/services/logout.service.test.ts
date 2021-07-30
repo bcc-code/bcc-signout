@@ -28,7 +28,7 @@ describe('Logout Service works properly', function () {
         expect(result).to.be.an('object')
         expect(result).to.have.deep.property('message')
         expect(result).to.have.deep.property('result')
-        expect(result.message).to.equal('Some logouts might have errors.')
+        expect(result.message).to.equal('All logouts sucessfull.')
         expect(result.result).to.equal('OK')
     })
 })
