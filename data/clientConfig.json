@@ -4,6 +4,7 @@
         "name": "frabegynnelsen.no",
         "method": "GET",
         "callbackUrls": [
+            "https://frabegynnelsen.wpengine.com/bcc-login/logout",
             "https://frabegynnelsen.wpengine.com/wp-json/bcc-signon/logout"
         ]
     }
