@@ -59,9 +59,10 @@ class LogoutService {
     }
 
     private async performLogouts(userId: string, callbackUrls: string[]) {
-        let responses = []
-        for (const callback of callbackUrls) {
-            const data = callback.split('::')
+        let responses:any[] = []
+
+        await Promise.all(callbackUrls.map(async (callbackUrl) => {
+            const data = callbackUrl.split('::')
             const url = data[0]
             const method = data[1]
             const state = data[2]
@@ -80,8 +81,6 @@ class LogoutService {
                             state: state,
                         },
                     })
-                } else {
-                    continue;
                 }
                 
                 responses.push({
@@ -92,7 +91,8 @@ class LogoutService {
                 console.error(error)
                 responses.push(error)
             }
-        }
+        }));
+
         log(responses)
         return responses
     }
