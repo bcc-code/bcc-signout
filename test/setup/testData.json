@@ -20,5 +20,13 @@
         "callbackUrls": [
             "https://frabegynnelsen.wpengine.com/wp-json/bcc-signon/logout"
         ]
+    },
+    {
+        "clientId": "1NNzCEMIEGFC6zpoUR5S6XfdwzlCRpm0",
+        "name": "beta.members.bccit.tools",
+        "method": "GET",
+        "callbackUrls": [
+            "https://beta.members.bccit.tools/logout"
+        ]
     }
 ]
